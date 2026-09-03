@@ -88,143 +88,18 @@ db.serialize(() => {
             type: "Game Development",
 
             description:
-                "Projekt i implementacja gry typu Grand Strategy z wykorzystaniem silnika Godot.",
+                "Funkcjonalny prototyp gry typu Grand Strategy stworzony w Godot, łączący symulację państw, gospodarkę, dyplomację, wojsko i rozbudowany interfejs użytkownika.",
 
             full_description:
-                "Gra typu Grand Strategy przygotowywana jako praca dyplomowa. Projekt obejmuje zaprojektowanie mechanik rozgrywki, systemów świata gry oraz ich implementację z wykorzystaniem silnika Godot i języka GDScript.",
+                "Grand Strategy Game to funkcjonalny prototyp gry strategicznej osadzonej w Europie w 1385 roku, przygotowany w silniku Godot w ramach pracy dyplomowej. Projekt skupia się na stworzeniu działającej symulacji świata, w której państwa zarządzają swoimi prowincjami, gospodarką, armiami i relacjami z innymi państwami.\n\nMapa świata została podzielona na państwa i prowincje, których geometria jest generowana na podstawie przygotowanych danych. Prowincje przechowują między innymi informacje o właścicielu, populacji i dobrach handlowych, a ich sąsiedztwo jest reprezentowane jako graf wykorzystywany między innymi do wyznaczania tras ruchu wojsk.\n\nJednym z głównych elementów projektu jest system gospodarczy obejmujący produkcję i konsumpcję dóbr, nadwyżki i deficyty, globalny rynek oraz dynamiczne ceny zależne od podaży i popytu. Państwa posiadają również skarbiec, populację i manpower, a poziom mobilizacji wpływa na dostępne zasoby oraz produkcję.\n\nSystem dyplomacji pozwala między innymi wypowiadać wojny, zawierać rozejmy, poprawiać relacje oraz przyznawać i uzyskiwać Military Access. Wojna i prawa przemarszu wpływają na możliwość przemieszczania wojsk. Możliwe jest również zawieranie sojuszy, jednak na obecnym etapie nie mają one jeszcze dalszego wpływu na pozostałe mechaniki gry.\n\nSystem wojskowy obejmuje tworzenie armii, zarządzanie jednostkami, przemieszczanie wojsk pomiędzy prowincjami oraz grupowanie wielu armii znajdujących się w tej samej prowincji. Do wyznaczania tras pomiędzy prowincjami wykorzystano algorytm BFS, a dostępność terytorium jest sprawdzana na podstawie właściciela, relacji dyplomatycznych i praw przemarszu.\n\nProjekt posiada rozbudowany interfejs użytkownika obejmujący między innymi HUD, Outliner oraz osobne panele prowincji, armii, gospodarki, dyplomacji i technologii. Logika symulacji została oddzielona od warstwy interfejsu, a model domenowy obejmuje między innymi Country, Province, Army i Unit. W projekcie wykorzystano również Autoloady, GameState, GameRules, serwisy oraz sygnały do komunikacji pomiędzy komponentami.\n\nWażnym elementem prac była również optymalizacja systemu mapy. Początkowo kontury prowincji były przetwarzane poprzez analizę mapy piksel po pikselu. Ostatecznie rozwiązanie zostało zastąpione precomputingiem konturów i przechowywaniem gotowych wielokątów prowincji w formacie JSON, ograniczając koszt inicjalizacji świata.\n\nProjekt zawiera również przygotowaną architekturę systemu AI opartego na akcjach AiAction oraz system technologii z drzewkiem rozwoju. Są to jednak elementy znajdujące się na wcześniejszym etapie implementacji i nie wpływają jeszcze w pełni na przebieg rozgrywki.",
 
             github_url: "",
 
             demo_url: "",
 
-            media_url: ""
-        },
-
-
-        {
-            title: "Pokémon Safari Zone AI",
-
-            slug: "pokemon-safari-zone-ai",
-
-            type: "Artificial Intelligence",
-
-            description:
-                "Środowisko do eksperymentów z uczeniem ze wzmocnieniem.",
-
-            full_description:
-                "Projekt środowiska inspirowanego Pokémon Safari Zone, wykorzystany do eksperymentowania z algorytmami Reinforcement Learning oraz biblioteką Gymnasium.",
-
-            github_url: "",
-
-            demo_url: "",
-
-            media_url: ""
-        },
-
-
-        {
-            title: "Space Invaders AI",
-
-            slug: "space-invaders-ai",
-
-            type: "Artificial Intelligence",
-
-            description:
-                "Środowisko Space Invaders wykorzystane do eksperymentów z Multi-Agent Reinforcement Learning.",
-
-            full_description:
-                "Projekt skupiający się na wykorzystaniu środowiska inspirowanego grą Space Invaders do eksperymentowania z uczeniem ze wzmocnieniem wielu agentów.",
-
-            github_url: "",
-
-            demo_url: "",
-
-            media_url: ""
-        },
-
-
-        {
-            title: "Journey of the Prairie King",
-
-            slug: "journey-of-the-prairie-king",
-
-            type: "Game Development",
-
-            description:
-                "Implementacja gry inspirowanej klasycznym arcade game.",
-
-            full_description:
-                "Projekt gry wykonany z wykorzystaniem silnika Unity i języka C#. Skupiał się na implementacji mechaniki rozgrywki oraz podstawowych systemów charakterystycznych dla gier arcade.",
-
-            github_url: "",
-
-            demo_url: "",
-
-            media_url: ""
-        },
-
-
-        {
-            title: "Pong / Flappy Bird",
-
-            slug: "pong-flappy-bird",
-
-            type: "Game Development",
-
-            description:
-                "Proste projekty gier wykonane w Unity jako ćwiczenie podstaw game developmentu.",
-
-            full_description:
-                "Zbiór niewielkich projektów wykonanych w Unity i C#, pozwalających przećwiczyć podstawowe mechaniki rozgrywki, obsługę obiektów oraz logikę gry.",
-
-            github_url: "",
-
-            demo_url: "",
-
-            media_url: ""
-        },
-
-
-        {
-            title: "Analiza rynku samochodów używanych",
-
-            slug: "analiza-rynku-samochodow",
-
-            type: "Data Science",
-
-            description:
-                "Analiza zależności pomiędzy parametrami samochodów a ich cenami na rynku wtórnym.",
-
-            full_description:
-                "Projekt analizy danych dotyczących rynku samochodów używanych. Dane zostały pozyskane z serwisu Otomoto, a następnie poddane czyszczeniu, analizie statystycznej i wizualizacji. Analizowane były między innymi cena, przebieg, pojemność silnika, moc oraz rok produkcji.",
-
-            github_url: "",
-
-            demo_url: "",
-
-            media_url: ""
-        },
-
-
-        {
-            title: "Fifteen Puzzle",
-
-            slug: "fifteen-puzzle",
-
-            type: "Android",
-
-            description:
-                "Gra logiczna na Androida z obsługą wyników i ustawień użytkownika.",
-
-            full_description:
-                "Aplikacja mobilna będąca implementacją klasycznej gry Fifteen Puzzle. Projekt obejmuje logikę rozgrywki, ekran wyników oraz zapisywanie ustawień użytkownika.",
-
-            github_url: "",
-
-            demo_url: "",
-
-            media_url: ""
+            media_url: "/images/grand_strategy.png"
         }
+
 
     ];
 
@@ -295,7 +170,9 @@ db.serialize(() => {
         "Git",
         "Docker",
         "ScriptableObjects",
-        "OOP"
+        "OOP",
+        "Simulation",
+        "Pathfinding"
     ];
 
 
@@ -327,41 +204,11 @@ db.serialize(() => {
 
         "grand-strategy-game": [
             "Godot",
-            "GDScript"
-        ],
-
-        "pokemon-safari-zone-ai": [
-            "Python",
-            "Gymnasium",
-            "Reinforcement Learning"
-        ],
-
-        "space-invaders-ai": [
-            "Python",
-            "Gymnasium",
-            "Multi-Agent RL"
-        ],
-
-        "journey-of-the-prairie-king": [
-            "Unity",
-            "C#"
-        ],
-
-        "pong-flappy-bird": [
-            "Unity",
-            "C#"
-        ],
-
-        "analiza-rynku-samochodow": [
-            "Python",
-            "Pandas"
-        ],
-
-        "fifteen-puzzle": [
-            "Java",
-            "Android"
+            "GDScript",
+            "Simulation",
+            "Pathfinding",
+            "OOP"
         ]
-
     };
 
 
