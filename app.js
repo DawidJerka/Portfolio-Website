@@ -167,10 +167,6 @@ app.get("/api/projects/:slug", (req, res) => {
 // START SERVER
 // =========================
 
-app.listen(PORT, () => {
-
-    console.log(
-        `Portfolio działa na http://localhost:${PORT}`
-    );
-
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Portfolio działa na porcie ${PORT}`);
 });
