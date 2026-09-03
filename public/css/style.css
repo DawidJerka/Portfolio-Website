@@ -802,6 +802,9 @@ button {
     min-height: 420px;
 }
 
+.project-card.featured .project-image {
+    height: 300px;
+}
 
 .project-top {
     display: flex;
@@ -945,6 +948,43 @@ button {
     font-size: 13px;
 }
 
+/* =========================
+   MODAL PROJECT MEDIA
+========================= */
+
+.modal-project-image {
+    width: 100%;
+
+    max-height: 420px;
+
+    margin-bottom: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: #0b0b0d;
+}
+
+
+.modal-project-image video,
+.modal-project-image img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    max-width: 100%;
+    max-height: 420px;
+
+    object-fit: cover;
+}
 
 /* =========================
    SKILLS
@@ -1618,6 +1658,67 @@ button {
 
     margin-top: 30px;
 }
+
+/* =========================
+   PROJECT MEDIA
+========================= */
+
+.project-image {
+    width: calc(100% + 60px);
+
+    height: 180px;
+
+    margin: -30px -30px 30px;
+
+    overflow: hidden;
+
+    border-bottom: 1px solid var(--border);
+
+    background: #0b0b0d;
+}
+
+
+.project-image img,
+.project-image video {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+.project-image video {
+    pointer-events: none;
+}
+
+
+.project-card:hover .project-image img,
+.project-card:hover .project-image video {
+    transform: scale(1.03);
+}
+
+
+.project-image img,
+.project-image video {
+    transition:
+        transform 0.5s ease;
+}
+
+
+@media (max-width: 800px) {
+
+    .project-image {
+        width: calc(100% + 50px);
+
+        height: 240px;
+
+        margin: -25px -25px 25px;
+    }
+
+}
+
 
 
 /* =========================

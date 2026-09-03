@@ -43,7 +43,7 @@ app.get("/api/projects", (req, res) => {
             p.full_description,
             p.github_url,
             p.demo_url,
-            p.image,
+            p.media_url,
             GROUP_CONCAT(t.name) AS technologies
         FROM projects p
 
@@ -55,7 +55,12 @@ app.get("/api/projects", (req, res) => {
 
         GROUP BY p.id
 
-        ORDER BY p.id DESC
+        ORDER BY
+            CASE
+                WHEN p.slug = 'survivors3d' THEN 0
+                ELSE 1
+            END,
+            p.id DESC
     `;
 
 
@@ -111,7 +116,7 @@ app.get("/api/projects/:slug", (req, res) => {
             p.full_description,
             p.github_url,
             p.demo_url,
-            p.image,
+            p.media_url,
             GROUP_CONCAT(t.name) AS technologies
         FROM projects p
 

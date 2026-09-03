@@ -16,7 +16,7 @@ db.serialize(() => {
             full_description TEXT,
             github_url TEXT,
             demo_url TEXT,
-            image TEXT,
+            media_url TEXT,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     `);
@@ -61,7 +61,25 @@ db.serialize(() => {
     // =====================================================
 
     const projects = [
+        {
+            title: "Survivors 3D",
 
+            slug: "survivors3d",
+
+            type: "Game Development",
+
+            description:
+                "3D sci-fi survivor game rozwijany w Unity 6.",
+
+            full_description:
+                "Projekt gry typu survivor rozwijany w silniku Unity 6. Skupia się na projektowaniu modularnych systemów gameplayowych, między innymi systemu broni, przeciwników, progresji postaci oraz zarządzania danymi.",
+
+            github_url: "https://github.com/DawidJerka/Survivors3D",
+
+            demo_url: "",
+
+            media_url: "/images/survivors3d.mp4"
+        },
         {
             title: "Grand Strategy Game",
 
@@ -79,7 +97,7 @@ db.serialize(() => {
 
             demo_url: "",
 
-            image: ""
+            media_url: ""
         },
 
 
@@ -100,7 +118,7 @@ db.serialize(() => {
 
             demo_url: "",
 
-            image: ""
+            media_url: ""
         },
 
 
@@ -121,7 +139,7 @@ db.serialize(() => {
 
             demo_url: "",
 
-            image: ""
+            media_url: ""
         },
 
 
@@ -142,7 +160,7 @@ db.serialize(() => {
 
             demo_url: "",
 
-            image: ""
+            media_url: ""
         },
 
 
@@ -163,7 +181,7 @@ db.serialize(() => {
 
             demo_url: "",
 
-            image: ""
+            media_url: ""
         },
 
 
@@ -184,7 +202,7 @@ db.serialize(() => {
 
             demo_url: "",
 
-            image: ""
+            media_url: ""
         },
 
 
@@ -205,7 +223,7 @@ db.serialize(() => {
 
             demo_url: "",
 
-            image: ""
+            media_url: ""
         }
 
     ];
@@ -224,7 +242,7 @@ db.serialize(() => {
             full_description,
             github_url,
             demo_url,
-            image
+            media_url
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `);
@@ -240,7 +258,7 @@ db.serialize(() => {
             project.full_description,
             project.github_url,
             project.demo_url,
-            project.image
+            project.media_url
         );
 
     });
@@ -275,7 +293,9 @@ db.serialize(() => {
         "HTML",
         "CSS",
         "Git",
-        "Docker"
+        "Docker",
+        "ScriptableObjects",
+        "OOP"
     ];
 
 
@@ -298,6 +318,12 @@ db.serialize(() => {
     // =====================================================
 
     const relations = {
+        "survivors3d": [
+            "Unity",
+            "C#",
+            "ScriptableObjects",
+            "OOP"
+        ],
 
         "grand-strategy-game": [
             "Godot",
