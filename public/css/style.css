@@ -14,6 +14,11 @@
     --accent: #b7ff4a;
 
     --max-width: 1200px;
+
+    --bg-light: #f1f1ee;
+    --text-light: #111114;
+    --text-light-soft: #66666d;
+    --border-light: #d7d7d2;
 }
 
 
@@ -272,7 +277,7 @@ button {
     color: transparent;
 
     -webkit-text-stroke: 1px #777;
-    text-stroke: 1px #777;
+    text-shadow: 1px #777;
 }
 
 
@@ -589,40 +594,87 @@ button {
     line-height: 1.75;
 }
 
-
 /* =========================
-   ABOUT
+   ABOUT PHOTO
 ========================= */
 
 .about-grid {
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.75fr 1.25fr;
 
-    gap: 100px;
+    gap: 90px;
 
-    align-items: start;
+    align-items: center;
 }
 
 
-.about-grid h3 {
-    max-width: 520px;
+.about-photo {
+    position: relative;
+    min-height: 470px;
 
-    font-size: 48px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 
-    line-height: 1.03;
-
-    letter-spacing: -2px;
+    overflow: hidden;
 }
 
+.about-photo img {
+    position: relative;
+    z-index: 1;
 
-.accent-text {
-    color: var(--accent);
+    width: min(100%, 375px);
+
+    height: auto;
+
+    transform: translateY(-30px);
+
+    filter:
+        saturate(90%);
+
+    -webkit-mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            black 10%,
+            black 100%
+        ),
+        linear-gradient(
+            to bottom,
+            black 0%,
+            black 78%,
+            transparent 100%
+        );
+
+    -webkit-mask-composite: source-in;
+
+    mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            black 10%,
+            black 100%
+        ),
+        linear-gradient(
+            to bottom,
+            black 0%,
+            black 78%,
+            transparent 100%
+        );
+
+    mask-composite: intersect;
+
+    transition:
+        transform 0.4s ease,
+        filter 0.4s ease;
 }
 
 
 .about-text {
-    max-width: 580px;
+    max-width: 620px;
+
+    align-self: center;
 
     color: var(--text-soft);
 
@@ -632,8 +684,24 @@ button {
 }
 
 
+.about-text h3 {
+    max-width: 600px;
+
+    margin-bottom: 34px;
+
+    font-size: 48px;
+
+    line-height: 1.03;
+
+    letter-spacing: -2px;
+}
+
 .about-text p + p {
-    margin-top: 24px;
+    margin-top: 20px;
+}
+
+.accent-text {
+    color: var(--accent);
 }
 
 
@@ -1878,11 +1946,23 @@ footer {
     .about-grid {
         grid-template-columns: 1fr;
 
-        gap: 40px;
+        gap: 45px;
     }
 
 
-    .about-grid h3 {
+    .about-photo {
+        min-height: 360px;
+    }
+
+
+    .about-photo img {
+        width: min(100%, 330px);
+    }
+
+
+    .about-text h3 {
+        margin-bottom: 28px;
+
         font-size: 40px;
     }
 
