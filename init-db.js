@@ -146,6 +146,50 @@ db.serialize(() => {
 
             media_url:
                 "/images/car_price_prediction.png"
+        },
+
+        {
+            title: "Iris Classifier",
+
+            slug: "iris-classifier",
+
+            type: "Machine Learning",
+
+            description:
+                "Klasyfikator gatunków irysów wykorzystujący model Random Forest wytrenowany w Pythonie i uruchamiany bezpośrednio w przeglądarce.",
+
+            full_description:
+                "Projekt przedstawia prostą aplikację wykorzystującą uczenie maszynowe do klasyfikacji gatunków irysów — Setosa, Versicolor oraz Virginica.\n\nModel Random Forest został wytrenowany w Pythonie z wykorzystaniem biblioteki scikit-learn na klasycznym zbiorze danych Iris. Do klasyfikacji wykorzystywane są cztery cechy kwiatu: długość i szerokość działki kielicha oraz długość i szerokość płatka.\n\nWytrenowany model został następnie wyeksportowany do postaci JavaScript, dzięki czemu predykcja może być wykonywana bezpośrednio po stronie klienta. Aplikacja nie wymaga backendu ani połączenia z serwerem podczas korzystania z klasyfikatora.\n\nInterfejs aplikacji został przygotowany w HTML i JavaScript. Użytkownik wprowadza parametry kwiatu w formularzu, a następnie otrzymuje przewidywany gatunek irysa na podstawie wyniku modelu.\n\nProjekt pokazuje podstawowy proces wykorzystania modelu Machine Learning w aplikacji webowej — od wytrenowania modelu w Pythonie, przez jego eksport do JavaScript, aż po wykonanie predykcji w przeglądarce.",
+
+            github_url:
+                "https://github.com/DawidJerka/IrisApp",
+
+            demo_url: "",
+
+            media_url:
+                "/images/iris_classifier.png"
+        },
+
+        {
+            title: "Stamina Dance Music Player",
+
+            slug: "stamina-dance-music-player",
+
+            type: "Android",
+
+            description:
+                "Aplikacja mobilna do przygotowywania i odtwarzania muzyki do treningów typu stamina odwzorowujących przebieg turnieju tańca towarzyskiego.",
+
+            full_description:
+                "Stamina Dance Music Player to aplikacja na Androida przeznaczona do przygotowywania treningów typu stamina dla tancerzy tańca towarzyskiego. Program pozwala skonfigurować przebieg całej sesji treningowej w sposób odpowiadający rzeczywistemu turniejowi tanecznemu.\n\nUżytkownik może wybrać pomiędzy tańcami standardowymi i latynoamerykańskimi, a następnie zdecydować, które z pięciu tańców mają zostać uwzględnione w treningu. Dla każdego tańca można ustawić indywidualną długość oraz tempo odtwarzania, a także czas przerw pomiędzy kolejnymi tańcami. Dostępna jest również możliwość zastosowania jednej długości i tempa dla wszystkich wybranych tańców.\n\nNa podstawie wybranych ustawień aplikacja losowo dobiera utwory oznaczone odpowiednimi tagami i tworzy playlistę odpowiadającą kolejności tańców podczas turnieju. Odtwarzanie rozpoczyna się od intro, następnie wykonywany jest pierwszy taniec, przerwa, kolejny taniec i następna przerwa, aż do zakończenia całej sesji.\n\nAplikacja posiada panel sterowania odtwarzaniem umożliwiający uruchamianie i pauzowanie muzyki, zatrzymywanie odtwarzania, przechodzenie do następnego tańca oraz cofanie do poprzedniego. Długość trwania i tempo utworów można wygodnie konfigurować za pomocą pickerów.\n\nIntegralną częścią aplikacji jest Playlist Manager, który umożliwia zarządzanie biblioteką utworów. Użytkownik może dodawać utwory do aplikacji oraz przypisywać im odpowiednie tagi odpowiadające poszczególnym tańcom. Dzięki temu program może automatycznie wybierać odpowiednią muzykę podczas tworzenia treningu.\n\nProjekt łączy tworzenie aplikacji mobilnej na Androida, obsługę odtwarzania muzyki, zarządzanie playlistą oraz rozbudowaną logikę sterującą przebiegiem treningu. Aplikacja została zaprojektowana jako praktyczne narzędzie wykorzystywane podczas przygotowań do turniejów tańca towarzyskiego.",
+
+            github_url:
+                "https://github.com/DawidJerka/StaminaDanceMusicPlayer",
+
+            demo_url: "",
+
+            media_url:
+                "/images/staminadancemusicplayer.png"
         }
 
 
@@ -210,7 +254,25 @@ db.serialize(() => {
         "Pandas",
         "Web Scraping",
         "Data Analysis",
-        "Machine Learning"
+        "Machine Learning",
+        "scikit-learn",
+        "Random Forest",
+        "Gymnasium",
+        "Stable-Baselines3",
+        "PPO",
+        "DQN",
+        "Reinforcement Learning",
+
+        // Web Development
+        "JavaScript",
+        "HTML",
+
+        // Android
+        "Java",
+        "Android",
+        "Android Studio",
+        "Audio Playback",
+        "Playlist Management"
     ];
 
 
@@ -239,7 +301,14 @@ db.serialize(() => {
             "ScriptableObjects",
             "OOP"
         ],
-
+        "safari-zone": [
+            "Python",
+            "Gymnasium",
+            "Stable-Baselines3",
+            "PPO",
+            "DQN",
+            "Reinforcement Learning"
+        ],
         "grand-strategy-game": [
             "Godot",
             "GDScript",
@@ -253,7 +322,30 @@ db.serialize(() => {
             "Web Scraping",
             "Data Analysis",
             "Machine Learning"
+        ],
+        "safari-zone": [
+            "Python",
+            "Gymnasium",
+            "Stable-Baselines3",
+            "DQN",
+            "Reinforcement Learning"
+        ],
+        "iris-classifier": [
+            "Python",
+            "scikit-learn",
+            "Random Forest",
+            "JavaScript",
+            "HTML",
+            "Machine Learning"
+        ],
+        "stamina-dance-music-player": [
+            "Java",
+            "Android",
+            "Android Studio",
+            "Audio Playback",
+            "Playlist Management"
         ]
+
     };
 
 
