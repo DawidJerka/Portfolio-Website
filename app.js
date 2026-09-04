@@ -60,7 +60,7 @@ app.get("/api/projects", (req, res) => {
                 WHEN p.slug = 'survivors3d' THEN 0
                 ELSE 1
             END,
-            p.id DESC
+            p.id ASC
     `;
 
 

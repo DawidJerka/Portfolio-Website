@@ -2,6 +2,12 @@ const db = require("./database/database");
 
 db.serialize(() => {
 
+    db.run(`DROP TABLE IF EXISTS project_technologies`);
+
+    db.run(`DROP TABLE IF EXISTS technologies`);
+
+    db.run(`DROP TABLE IF EXISTS projects`);
+
     // =====================================================
     // TABLE: PROJECTS
     // =====================================================
@@ -98,6 +104,48 @@ db.serialize(() => {
             demo_url: "",
 
             media_url: "/images/grand_strategy.png"
+        },
+
+        {
+            title: "Safari Zone",
+
+            slug: "safari-zone",
+
+            type: "Reinforcement Learning / Game Development",
+
+            description:
+                "Środowisko Reinforcement Learning inspirowane Pokémon Safari Zone oraz trening agentów DQN  i PPO do podejmowania decyzji w warunkach niepewności.",
+
+            full_description:
+                "Safari Zone to projekt polegający na zaprojektowaniu i implementacji własnego środowiska do uczenia ze wzmocnieniem z wykorzystaniem biblioteki Gymnasium. Środowisko odwzorowuje mechanikę Safari Zone, w której agent dysponuje ograniczoną liczbą Safari Ball i musi podejmować decyzje wpływające na szanse złapania lub ucieczki Pokémona.\n\nAgent może wykonywać trzy rodzaje akcji: Catch, Rock oraz Bait. Rzucenie Safari Ball pozwala podjąć próbę złapania Pokémona, kamień zwiększa szansę na złapanie, ale również ryzyko ucieczki, natomiast przynęta zmniejsza ryzyko ucieczki kosztem mniejszej szansy na złapanie. Akcje zostały zdefiniowane jako enum i stanowią przestrzeń działań środowiska.\n\nŚrodowisko uwzględnia różne typy Pokémonów posiadających odmienne parametry, między innymi bazową szansę złapania, szansę ucieczki, poziom oraz wpływ przynęty i kamienia. Poziom konkretnego Pokémona jest losowany w określonym zakresie, dzięki czemu kolejne epizody mogą różnić się poziomem trudności.\n\nStan obserwowany przez agenta obejmuje między innymi liczbę dostępnych Safari Ball, liczbę wykorzystanych tur, typ i poziom aktualnego Pokémona oraz liczbę użytych przynęt i kamieni. Środowisko zostało zaimplementowane zgodnie z API Gymnasium i posiada własną logikę resetowania, wykonywania kolejnych kroków, obliczania nagrody oraz renderowania stanu gry.\n\nIstotnym elementem projektu było zaprojektowanie funkcji nagrody. Udane złapanie Pokémona jest nagradzane wysoką dodatnią nagrodą, ucieczka Pokémona wiąże się z wysoką karą, a poszczególne akcje pośrednie otrzymują mniejsze wartości nagrody. Takie podejście ma zachęcać agenta do gospodarowania ograniczonymi zasobami i poszukiwania skutecznej strategii zamiast wykonywania przypadkowych akcji.\n\nNa przygotowanym środowisku przeprowadzono trening agentów wykorzystującego algorytmy DQN i PPO z biblioteki Stable-Baselines3. Model został trenowany przez 1 000 000 kroków, a następnie oceniony na 100 niezależnych epizodach. Wyniki treningu i ewaluacji były zbierane i wizualizowane za pomocą biblioteki Plotly.\n\nProjekt obejmował również przygotowanie prostego interfejsu wizualizującego przebieg epizodu oraz obsługę zasobów graficznych, takich jak tło i sprite'y Pokémonów.\n\nProjekt pozwolił mi przećwiczyć projektowanie środowisk dla Reinforcement Learning, definiowanie przestrzeni akcji i obserwacji, projektowanie funkcji nagrody oraz wykorzystanie gotowych algorytmów uczenia ze wzmocnieniem do treningu i oceny agenta.",
+
+            github_url: "https://github.com/DawidJerka/Safari_Zone",
+
+            demo_url: "",
+
+            media_url: "/images/safari_zone.png"
+        },
+        
+        {
+            title: "Predykcja cen samochodów",
+
+            slug: "car-price-prediction",
+
+            type: "Data Science",
+
+            description:
+                "Analiza danych samochodów używanych zebranych z internetu oraz przygotowanie modelu do predykcji ich cen.",
+
+            full_description:
+                "Projekt obejmował cały proces pracy z danymi dotyczącymi rynku samochodów używanych — od pozyskania danych z internetu, przez ich czyszczenie i analizę, aż po przygotowanie modelu predykcyjnego.\n\nDane zostały zebrane poprzez scraping ofert samochodów z internetu, a następnie połączone i przygotowane do dalszej analizy. Zbiór zawierał między innymi informacje o marce, modelu, typie nadwozia, roku produkcji, przebiegu, pojemności silnika, rodzaju paliwa, skrzyni biegów, mocy oraz cenie.\n\nW ramach eksploracyjnej analizy danych badałem rozkłady poszczególnych zmiennych oraz zależności pomiędzy parametrami samochodów. Analiza obejmowała między innymi macierz korelacji oraz porównanie średnich cen w zależności od marki i innych cech pojazdu.\n\nKolejnym etapem było przygotowanie modelu pozwalającego na estymację ceny samochodu na podstawie jego parametrów. Wyniki predykcji zostały porównane z rzeczywistymi wartościami, a jakość modelu oceniona między innymi poprzez analizę błędów predykcji.\n\nProjekt pozwolił mi przejść przez pełny proces pracy z danymi — od surowych danych pozyskanych z internetu, przez ich przygotowanie i analizę, po wykorzystanie ich do stworzenia rozwiązania predykcyjnego.",
+
+            github_url:
+                "https://github.com/DawidJerka/Car_prices",
+
+            demo_url: "",
+
+            media_url:
+                "/images/car_price_prediction.png"
         }
 
 
@@ -147,32 +195,22 @@ db.serialize(() => {
     // =====================================================
 
     const technologies = [
-        "Godot",
-        "GDScript",
+        // Game Development
         "Unity",
         "C#",
-        "C++",
-        "Python",
-        "Pandas",
-        "Gymnasium",
-        "Reinforcement Learning",
-        "Multi-Agent RL",
-        "Java",
-        "Android",
-        "JavaScript",
-        "Node.js",
-        "Express",
-        "EJS",
-        "SQLite",
-        "SQL",
-        "HTML",
-        "CSS",
-        "Git",
-        "Docker",
         "ScriptableObjects",
         "OOP",
+        "Godot",
+        "GDScript",
         "Simulation",
-        "Pathfinding"
+        "Pathfinding",
+
+        // Data Science
+        "Python",
+        "Pandas",
+        "Web Scraping",
+        "Data Analysis",
+        "Machine Learning"
     ];
 
 
@@ -208,6 +246,13 @@ db.serialize(() => {
             "Simulation",
             "Pathfinding",
             "OOP"
+        ],
+        "car-price-prediction": [
+            "Python",
+            "Pandas",
+            "Web Scraping",
+            "Data Analysis",
+            "Machine Learning"
         ]
     };
 
