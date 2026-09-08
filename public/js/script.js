@@ -2548,3 +2548,151 @@ initSkillsMap();
 // =========================================================
 
 loadProjects();
+
+/* =========================
+   CODE CARD — TYPEWRITING
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+    const codeContent = document.querySelector(".code-content");
+
+    if (!codeContent) return;
+
+    // Usuń ręcznie wpisany kursor z HTML
+    const oldCursor = codeContent.querySelector(".code-cursor");
+    if (oldCursor) {
+        oldCursor.remove();
+    }
+
+    // Pobierz wszystkie linie kodu
+    const lines = [...codeContent.querySelectorAll("p")];
+
+    // Przygotuj kursor
+    const cursor = document.createElement("span");
+    cursor.className = "typewriter-cursor";
+    cursor.textContent = "_";
+
+    // Przygotowanie jednej linii:
+    // - usuwa przypadkowe białe znaki z wnętrza spanów
+    // - zachowuje potrzebne spacje między elementami
+    // - usuwa spacje przed przecinkami, średnikami itd.
+    function prepareLine(line) {
+        const temp = document.createElement("div");
+        temp.innerHTML = line.innerHTML;
+
+        // Czyścimy zawartość kolorowanych spanów
+        temp.querySelectorAll(".code-purple, .code-green").forEach((element) => {
+            element.textContent = element.textContent
+                .replace(/\s+/g, " ")
+                .trim();
+        });
+
+        // Normalizacja whitespace'u
+        let html = temp.innerHTML
+            .replace(/\s+/g, " ")
+            .replace(/\s+([,;:}\]])/g, "$1")
+            .replace(/([([{])\s+/g, "$1")
+            .trim();
+
+        temp.innerHTML = html;
+
+        return [...temp.childNodes].map((node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                return {
+                    type: "text",
+                    text: node.textContent
+                };
+            }
+
+            return {
+                type: "element",
+                element: node.cloneNode(true)
+            };
+        });
+    }
+
+    // Zapamiętaj zawartość wszystkich linii
+    const preparedLines = lines.map((line) => prepareLine(line));
+
+    // Wyczyść wszystkie linie
+    lines.forEach((line) => {
+        line.innerHTML = "";
+    });
+
+    // Funkcja opóźnienia
+    const sleep = (ms) =>
+        new Promise((resolve) => setTimeout(resolve, ms));
+
+    // Dodawanie pojedynczego znaku
+    async function typeTextNode(line, text) {
+        const textNode = document.createTextNode("");
+        line.appendChild(textNode);
+
+        for (const char of text) {
+            textNode.textContent += char;
+
+            // Kursor zawsze na końcu aktualnie wpisywanego tekstu
+            line.appendChild(cursor);
+
+            // Spacje pojawiają się praktycznie bez pauzy
+            if (char === " ") {
+                await sleep(3);
+            } else {
+                await sleep(18);
+            }
+        }
+    }
+
+    // Wpisywanie elementu, np. kolorowanego spana
+    async function typeElement(line, element) {
+        const newElement = element.cloneNode(false);
+        newElement.textContent = "";
+
+        line.appendChild(newElement);
+
+        const text = element.textContent;
+
+        for (const char of text) {
+            newElement.textContent += char;
+
+            // Kursor za aktualnie wpisywanym spanem
+            line.appendChild(cursor);
+
+            if (char === " ") {
+                await sleep(3);
+            } else {
+                await sleep(18);
+            }
+        }
+    }
+
+    // Główna animacja
+    async function typeCode() {
+        // Kursor na początku pierwszej linii
+        lines[0].appendChild(cursor);
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+
+            // Przenieś kursor na aktualną linię
+            line.appendChild(cursor);
+
+            for (const node of preparedLines[i]) {
+                if (node.type === "text") {
+                    await typeTextNode(line, node.text);
+                } else {
+                    await typeElement(line, node.element);
+                }
+            }
+
+            // Mała pauza przed następną linią
+            if (i < lines.length - 1) {
+                await sleep(80);
+            }
+        }
+
+        // Kursor zostaje na końcu ostatniej linii
+        lines[lines.length - 1].appendChild(cursor);
+    }
+
+    typeCode();
+});
