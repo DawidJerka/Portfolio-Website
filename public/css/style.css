@@ -1777,57 +1777,42 @@ button {
 
 
 /* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    #skills-map-svg {
-        min-height: 580px;
-    }
-
-    .skills-sector-label {
-        font-size: 10px;
-
-        letter-spacing: 1.3px;
-    }
-
-    .skills-technology-label {
-        font-size: 10px;
-    }
-
-    .skills-project-label {
-        font-size: 9px;
-    }
-}
-
+   SKILLS MAP — MOBILE
+========================================================= */
 
 @media (max-width: 700px) {
 
     .skills-map-header {
-        align-items: flex-start;
+        margin-bottom: 14px;
+        gap: 6px;
+    }
 
-        flex-direction: column;
-
-        gap: 8px;
+    .skills-map-header > span:first-child {
+        font-size: 10px;
     }
 
     .skills-map-hint {
         font-size: 9px;
+        line-height: 1.5;
+    }
+
+    .skills-map-canvas {
+        border-radius: 10px;
     }
 
     #skills-map-svg {
-        min-height: 500px;
+        width: 100%;
+        height: auto;
+        min-height: 0;
     }
 
     .skills-sector-label {
-        font-size: 8px;
-
+        font-size: 9px;
         letter-spacing: 1px;
     }
 
     .skills-technology-label {
-        font-size: 8px;
+        font-size: 9px;
     }
 
     .skills-project-label {
@@ -1835,117 +1820,475 @@ button {
     }
 
     .skills-center-name {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .skills-center-role {
         font-size: 8px;
+    }
+
+    .skills-map-details {
+        left: 18px;
+        bottom: 16px;
     }
 }
 
 
 @media (max-width: 500px) {
 
-    #skills-map-svg {
-        min-height: 420px;
+    .skills-map-header {
+        margin-bottom: 12px;
     }
 
-    .skills-map-details {
-        display: none;
+    .skills-map-canvas {
+        border-radius: 8px;
+    }
+
+    #skills-map-svg {
+        min-height: 0;
     }
 
     .skills-sector-label {
-        font-size: 7px;
+        font-size: 8px;
+        letter-spacing: 0.8px;
     }
 
     .skills-technology-label {
-        font-size: 7px;
+        font-size: 8px;
     }
 
     .skills-project-label {
         font-size: 7px;
     }
+
+    .skills-center-name {
+        font-size: 15px;
+    }
+
+    .skills-center-role {
+        font-size: 7px;
+    }
+
+    .skills-map-details {
+        display: none;
+    }
+}
+
+/* =========================================================
+   EXPERIENCE — TREE TIMELINE
+========================================================= */
+
+.experience-timeline {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin: 70px auto 0;
+    padding: 60px 0 100px;
 }
 
 
-/* =========================
-   EXPERIENCE
-========================= */
 
-.experience-list {
-    border-top: 1px solid var(--border);
+/* =========================================================
+   PIEŃ
+========================================================= */
+
+.experience-timeline::before {
+    content: "";
+    position: absolute;
+    top: 80px;
+    bottom: 120px;
+    left: 50%;
+    width: 8px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--accent) 8%,
+        var(--accent) 92%,
+        transparent 100%
+    );
+    border-radius: 999px;
+    box-shadow:
+        0 0 10px rgba(183, 255, 74, 0.25),
+        0 0 25px rgba(183, 255, 74, 0.08);
+    z-index: 0;
 }
 
+
+
+/* =========================================================
+   ELEMENT
+========================================================= */
 
 .experience-item {
-    display: grid;
+    position: relative;
+    display: block;
+    width: 50%;
+    min-height: 0;
+    margin: 0;
+    margin-bottom: -90px;
+}
 
-    grid-template-columns: 190px 1fr;
+.experience-item:last-child {
+    margin-bottom: 0;
+}
 
-    gap: 55px;
 
-    padding: 42px 0;
+/* =========================================================
+   LEWA / PRAWA STRONA
+========================================================= */
 
-    border-bottom: 1px solid var(--border);
+.experience-item-left {
+    margin-left: 0;
+    margin-right: auto;
+
+    padding-right: 80px;
+}
+
+.experience-item-right {
+    margin-left: 50%;
+
+    padding-left: 80px;
+}
+
+
+/* =========================================================
+   KARTA
+========================================================= */
+
+.experience-content {
+    position: relative;
+
+    padding: 28px 30px;
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    background: var(--card);
+
+    z-index: 2;
 
     transition:
-        background 0.25s ease,
-        padding-left 0.25s ease;
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 
-.experience-item:hover {
-    background:
-        linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.025),
-            transparent 75%
-        );
+.experience-content:hover {
+    transform: translateY(-4px);
 
-    padding-left: 16px;
+    border-color: var(--accent);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.25);
 }
 
+
+/* =========================================================
+   PIERŚCIEŃ Z DATĄ
+========================================================= */
 
 .experience-date {
-    padding-top: 5px;
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 100% !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    width: 96px;
+    height: 96px;
+
+    display: flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px !important;
+
+    border: 6px solid var(--accent);
+    border-radius: 50%;
+
+    /*
+       ŚRODEK PIERŚCIENIA ZAKRYWA PIEŃ.
+       --bg-soft = tło całej sekcji Experience.
+    */
+    background: var(--bg-soft);
+
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    text-align: center;
+
+    white-space: normal;
+
+    /*
+       Pień = 0
+       gałąź = 1
+       karta = 2
+       pierścień = 10
+    */
+    z-index: 10 !important;
+}
+
+
+/* prawa strona */
+
+.experience-item-right .experience-date {
+    left: 0 !important;
+}
+
+
+/* =========================================================
+   USUWAMY STARE KROPKI
+========================================================= */
+
+.experience-dot {
+    display: none !important;
+}
+
+
+/* =========================================================
+   GAŁĘZIE
+========================================================= */
+
+.experience-item-left::after,
+.experience-item-right::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 6px;
+    width: 90px;
+    transform: translateY(-50%);
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--accent)
+    );
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(183, 255, 74, 0.2);
+    z-index: 1;
+}
+
+.experience-item-left::after {
+    right: -10px;
+}
+
+.experience-item-right::after {
+    left: -10px;
+    background: linear-gradient(
+        to left,
+        transparent,
+        var(--accent)
+    );
+}
+
+
+/* =========================================================
+   ZAWARTOŚĆ
+========================================================= */
+
+.experience-content .timeline-label {
+    display: inline-block;
+
+    margin-bottom: 12px;
+
+    padding: 5px 11px;
+
+    border: 1px solid var(--border);
+    border-radius: 999px;
 
     color: var(--accent);
 
-    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
 
-    font-size: 12px;
-
-    letter-spacing: 0.5px;
-}
-
-
-.experience-content {
-    max-width: 780px;
+    line-height: 1.3;
 }
 
 
 .experience-content h3 {
-    font-size: 28px;
+    margin: 0 0 14px;
 
-    line-height: 1.15;
-
-    letter-spacing: -0.8px;
+    font-size: 1.25rem;
+    line-height: 1.3;
 }
 
 
 .experience-content p {
-    margin-top: 18px;
+    margin: 0 0 12px;
 
     color: var(--text-soft);
 
-    font-size: 15px;
-
-    line-height: 1.75;
+    line-height: 1.7;
 }
 
 
-.experience-content p + p {
-    margin-top: 10px;
+.experience-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+.experience-item-left .experience-content,
+.experience-item-right .experience-content {
+    text-align: left;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .experience-timeline {
+        margin-top: 50px;
+        padding: 40px 0 70px 0;
+    }
+
+    /* PIEŃ MAKSYMALNIE Z LEWEJ */
+    .experience-timeline::before {
+        left: 12px;
+        top: 50px;
+        bottom: 100px;
+        width: 8px;
+        transform: translateX(-50%);
+        border-radius: 999px;
+    }
+
+    /* KAŻDA KARTA PO PRAWEJ */
+    .experience-timeline .experience-item,
+    .experience-timeline .experience-item-left,
+    .experience-timeline .experience-item-right {
+        display: block;
+        width: 100%;
+
+        margin-left: 0;
+        margin-right: 0;
+
+        padding-left: 62px;
+        padding-right: 0;
+
+        margin-bottom: 35px;
+    }
+
+    .experience-timeline .experience-item:last-child {
+        margin-bottom: 0;
+    }
+
+    /* PIERŚCIEŃ */
+    .experience-timeline .experience-item-left .experience-date,
+    .experience-timeline .experience-item-right .experience-date {
+        position: absolute !important;
+
+        left: 12px !important;
+        top: 50% !important;
+
+        width: 70px;
+        height: 70px;
+
+        transform: translate(-50%, -50%) !important;
+
+        padding: 7px !important;
+
+        border: 5px solid var(--accent);
+        border-radius: 50%;
+
+        background: var(--bg-soft);
+
+        font-size: 0.62rem;
+        line-height: 1.2;
+
+        z-index: 10 !important;
+    }
+
+    /*
+       GAŁĄŹ OD PIENIA DO KARTY
+       zaczyna się dokładnie przy pniu
+       i kończy pod kartą
+    */
+    .experience-timeline .experience-item-left::after,
+    .experience-timeline .experience-item-right::after {
+        content: "";
+
+        position: absolute;
+
+        left: 12px;
+        right: auto;
+
+        top: 50%;
+
+        width: 62px;
+        height: 7px;
+
+        transform: translateY(-50%);
+
+        border-radius: 999px;
+
+        background: linear-gradient(
+            to right,
+            var(--accent),
+            transparent
+        );
+
+        z-index: 1;
+    }
+
+    .experience-timeline .experience-content {
+        position: relative;
+        z-index: 2;
+        padding: 22px;
+    }
+
+    .experience-timeline .experience-content h3 {
+        font-size: 1.15rem;
+    }
+
+    .experience-timeline .experience-content p {
+        line-height: 1.6;
+    }
+}
+
+
+@media (max-width: 520px) {
+
+    .experience-timeline {
+        padding-left: 0;
+    }
+
+    .experience-timeline::before {
+        left: 10px;
+    }
+
+    .experience-timeline .experience-item,
+    .experience-timeline .experience-item-left,
+    .experience-timeline .experience-item-right {
+        padding-left: 54px;
+    }
+
+    .experience-timeline .experience-item-left .experience-date,
+    .experience-timeline .experience-item-right .experience-date {
+        left: 10px !important;
+
+        width: 64px;
+        height: 64px;
+
+        border-width: 5px;
+        font-size: 0.58rem;
+    }
+
+    .experience-timeline .experience-item-left::after,
+    .experience-timeline .experience-item-right::after {
+        left: 10px;
+        width: 54px;
+        height: 6px;
+    }
 }
 
 
