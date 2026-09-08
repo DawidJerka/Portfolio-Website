@@ -171,6 +171,20 @@ db.serialize(() => {
         },
 
         {
+            title: "Car Brand Classification",
+            slug: "car-brand-classification",
+            type: "Machine Learning / Android",
+            description:
+            "System wykorzystujący model YOLOv8n do detekcji logotypów samochodów oraz aplikacja Android umożliwiająca rozpoznawanie marek na nagraniach wideo.",
+            full_description:
+            "Projekt realizowany w trzyosobowym zespole, którego celem było stworzenie systemu rozpoznawania marek samochodów na podstawie obrazu i nagrań wideo.\n\nPoczątkowo wykorzystaliśmy model MobileNet do klasyfikacji marek, jednak niezadowalające wyniki doprowadziły do zmiany podejścia na detekcję logotypów. Na przygotowanym zbiorze danych wytrenowaliśmy model YOLOv8n, przeprowadzając eksperymenty z liczbą klas, augmentacją danych oraz hiperparametrami. Finalnie wybraliśmy model trenowany na zredukowanym zbiorze klas z zastosowaną augmentacją.\n\nProjekt obejmował również analizę wyjaśnialności modelu z wykorzystaniem EigenCam oraz ocenę śladu energetycznego treningu przy użyciu CodeCarbon.\n\nMoim głównym wkładem było podejmowanie decyzji technicznych, wybór datasetu oraz przygotowanie części związanej z wdrożeniem modelu. Przekonwertowałem wytrenowany model YOLOv8n do formatu TensorFlow Lite (TFLite) i zintegrowałem go z aplikacją Android.\n\nAplikacja pozwala wybrać nagranie wideo, a następnie analizuje jego kolejne klatki bezpośrednio na urządzeniu. Wykryte logotypy są oznaczane bounding boxami wraz z nazwą rozpoznanej marki. Użytkownik może również regulować częstotliwość analizowania klatek, dostosowując działanie aplikacji do możliwości urządzenia.\n\nProjekt pozwolił zdobyć praktyczne doświadczenie w całym procesie tworzenia rozwiązania ML — od przygotowania danych i eksperymentów z modelami, przez analizę ich działania, aż po wdrożenie modelu w aplikacji mobilnej.",
+            github_url:
+            "https://github.com/DawidJerka/WTUM-Klasyfikacja_samochodow",
+            demo_url: "",
+            media_url: "/images/car_brand_classification.png"
+        },
+
+        {
             title: "Stamina Dance Music Player",
 
             slug: "stamina-dance-music-player",
@@ -262,6 +276,9 @@ db.serialize(() => {
         "PPO",
         "DQN",
         "Reinforcement Learning",
+        "YOLO",
+        "TensorFlow Lite",
+        "Computer Vision",
 
         // Web Development
         "JavaScript",
@@ -337,6 +354,16 @@ db.serialize(() => {
             "JavaScript",
             "HTML",
             "Machine Learning"
+        ],
+        "car-brand-classification": [
+            "Python",
+            "YOLO",
+            "TensorFlow Lite",
+            "Machine Learning",
+            "Computer Vision",
+            "Java",
+            "Android",
+            "Android Studio"
         ],
         "stamina-dance-music-player": [
             "Java",
