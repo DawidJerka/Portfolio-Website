@@ -574,219 +574,145 @@
 
         </section>
 
+        <section id="skills" class="section skills-map-section">
+            <div <section id="skills" class="section skills-map-section">
+        <div class="container">
 
+            <div class="section-heading">
+                <span class="section-eyebrow">02 — Kompetencje</span>
+                <h2>Umiejętności</h2>
+            </div>
 
-        <!-- =========================
-             SKILLS
-        ========================== -->
+            <div class="skills-map">
 
-        <section
-            id="skills"
-            class="section"
-        >
+                <div class="skills-map-header">
+                    <span>TECHNOLOGY MAP</span>
 
-            <div class="container">
-
-
-                <div class="section-heading">
-
-                    <span>
-                        04
+                    <span class="skills-map-hint">
+                        Najedź na technologię, aby zobaczyć powiązane projekty
                     </span>
-
-                    <h2>
-                        Umiejętności
-                    </h2>
-
                 </div>
 
+                <div class="skills-map-canvas">
+
+                    <svg
+                        id="skills-map-svg"
+                        viewBox="0 0 1000 760"
+                        role="img"
+                        aria-label="Mapa umiejętności Dawida"
+                    >
+
+                        <defs>
+
+                            <filter
+                                id="skills-glow"
+                                x="-100%"
+                                y="-100%"
+                                width="300%"
+                                height="300%"
+                            >
+                                <feGaussianBlur
+                                    stdDeviation="4"
+                                    result="blur"
+                                />
+
+                                <feMerge>
+                                    <feMergeNode in="blur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+
+                        </defs>
 
 
-                <div class="skills-grid">
+                        <!--
+                            WARSTWY MAPY
+                        -->
+
+                        <g id="skills-map-connections"></g>
+
+                        <g id="skills-map-sectors"></g>
+
+                        <g id="skills-map-technologies"></g>
+
+                        <g id="skills-map-projects"></g>
 
 
-                    <div class="skill">
+                        <!--
+                            CENTRUM
+                        -->
 
-                        <strong>
-                            C# / Unity
-                        </strong>
+                        <g
+                            id="skills-map-center"
+                            class="skills-map-center"
+                        >
 
-                        <span>
-                            Game Development
-                        </span>
+                            <circle
+                                class="skills-center-ring skills-center-ring-outer"
+                                cx="500"
+                                cy="380"
+                                r="82"
+                            />
 
-                    </div>
+                            <circle
+                                class="skills-center-ring skills-center-ring-inner"
+                                cx="500"
+                                cy="380"
+                                r="68"
+                            />
 
+                            <text
+                                x="500"
+                                y="374"
+                                class="skills-center-name"
+                                text-anchor="middle"
+                            >
+                                DAWID
+                            </text>
 
+                            <text
+                                x="500"
+                                y="400"
+                                class="skills-center-role"
+                                text-anchor="middle"
+                            >
+                                DEVELOPER
+                            </text>
 
-                    <div class="skill">
+                        </g>
 
-                        <strong>
-                            Godot / GDScript
-                        </strong>
-
-                        <span>
-                            Game Development
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="skill">
-
-                        <strong>
-                            C++
-                        </strong>
-
-                        <span>
-                            Programming
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="skill">
-
-                        <strong>
-                            Python
-                        </strong>
-
-                        <span>
-                            Data / AI
-                        </span>
-
-                    </div>
+                    </svg>
 
 
+                    <!--
+                        INFORMACJE O AKTYWNEJ TECHNOLOGII
+                    -->
 
-                    <div class="skill">
+                    <div
+                        id="skills-map-details"
+                        class="skills-map-details"
+                        aria-live="polite"
+                    >
 
-                        <strong>
-                            JavaScript
-                        </strong>
+                        <div class="skills-details-placeholder">
 
-                        <span>
-                            Node.js / Express
-                        </span>
+                            <span class="skills-details-line"></span>
 
-                    </div>
+                            <span>
+                                Najedź na technologię
+                            </span>
 
-
-
-                    <div class="skill">
-
-                        <strong>
-                            SQL
-                        </strong>
-
-                        <span>
-                            Databases
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="skill">
-
-                        <strong>
-                            Git
-                        </strong>
-
-                        <span>
-                            Version Control
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="skill">
-
-                        <strong>
-                            REST API
-                        </strong>
-
-                        <span>
-                            Basic knowledge
-                        </span>
+                        </div>
 
                     </div>
-
 
                 </div>
-
-
-
-                <div class="skills-extra">
-
-
-                    <div class="skills-extra-column">
-
-
-                        <h3>
-                            Game Development
-                        </h3>
-
-
-                        <p>
-
-                            Godot · GDScript · Unity · C#
-
-                        </p>
-
-
-                    </div>
-
-
-
-                    <div class="skills-extra-column">
-
-
-                        <h3>
-                            Data & AI
-                        </h3>
-
-
-                        <p>
-
-                            Python · Pandas · Gymnasium
-                            · Reinforcement Learning
-
-                        </p>
-
-
-                    </div>
-
-
-
-                    <div class="skills-extra-column">
-
-
-                        <h3>
-                            Web
-                        </h3>
-
-
-                        <p>
-
-                            Node.js · Express · EJS
-                            · REST API · HTML · CSS
-
-                        </p>
-
-
-                    </div>
-
-
-                </div>
-
 
             </div>
 
-        </section>
+        </div>
+    </section>
+
 
 
 

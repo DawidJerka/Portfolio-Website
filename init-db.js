@@ -153,7 +153,7 @@ db.serialize(() => {
 
             slug: "iris-classifier",
 
-            type: "Machine Learning",
+            type: "Machine Learning / Web Development",
 
             description:
                 "Klasyfikator gatunków irysów wykorzystujący model Random Forest wytrenowany w Pythonie i uruchamiany bezpośrednio w przeglądarce.",
@@ -204,6 +204,26 @@ db.serialize(() => {
 
             media_url:
                 "/images/staminadancemusicplayer.png"
+        },
+
+        {
+            title: "Portfolio",
+
+            slug: "portfolio",
+
+            type: "Web Development",
+
+            description:
+                "Responsywna strona portfolio z dynamicznym systemem prezentacji projektów opartym na Node.js, Express i bazie SQLite.",
+
+            full_description:
+                "Portfolio to własna aplikacja webowa służąca do prezentowania moich projektów, umiejętności, doświadczenia i wykształcenia.\n\nAplikacja została zbudowana w oparciu o Node.js i Express. Główna strona wykorzystuje silnik szablonów EJS, natomiast dane dotyczące projektów są przechowywane w relacyjnej bazie SQLite.\n\nIstotną częścią projektu jest dynamiczny system prezentacji projektów. Frontend pobiera dane z REST API za pomocą fetch() i na ich podstawie generuje karty projektów. Dla każdego projektu dostępny jest również widok szczegółów wyświetlany w modalu, zawierający opis, technologie, multimedia oraz odnośniki do GitHub i wersji demonstracyjnej.\n\nBaza danych została zaprojektowana z wykorzystaniem relacji wiele-do-wielu pomiędzy projektami i technologiami. Informacje o technologiach są pobierane za pomocą zapytań SQL z wykorzystaniem JOIN oraz GROUP_CONCAT, a następnie przetwarzane po stronie serwera do postaci wykorzystywanej przez frontend.\n\nBackend udostępnia endpointy REST API do pobierania listy wszystkich projektów oraz szczegółów pojedynczego projektu na podstawie jego sluga. Obsługuje również odpowiedzi błędów, w tym sytuację, gdy wskazany projekt nie istnieje.\n\nFrontend został przygotowany w HTML, CSS i JavaScript. JavaScript odpowiada między innymi za komunikację z API, dynamiczne generowanie elementów interfejsu, obsługę modala, wyświetlanie zdjęć i materiałów wideo oraz obsługę stanów ładowania i błędów.\n\nProjekt pozwolił mi połączyć tworzenie backendu, projektowanie REST API, pracę z relacyjną bazą danych oraz budowę dynamicznego interfejsu webowego w jednej aplikacji.",
+
+            github_url: "https://github.com/DawidJerka/Portfolio-Website",
+
+            demo_url: "",
+
+            media_url: "/images/portfolio.png"
         }
 
 
@@ -283,6 +303,13 @@ db.serialize(() => {
         // Web Development
         "JavaScript",
         "HTML",
+        "CSS",
+        "Node.js",
+        "Express",
+        "EJS",
+        "SQLite",
+        "SQL",
+        "REST API",
 
         // Android
         "Java",
@@ -340,13 +367,6 @@ db.serialize(() => {
             "Data Analysis",
             "Machine Learning"
         ],
-        "safari-zone": [
-            "Python",
-            "Gymnasium",
-            "Stable-Baselines3",
-            "DQN",
-            "Reinforcement Learning"
-        ],
         "iris-classifier": [
             "Python",
             "scikit-learn",
@@ -371,7 +391,18 @@ db.serialize(() => {
             "Android Studio",
             "Audio Playback",
             "Playlist Management"
-        ]
+        ],
+        "portfolio": [
+            "JavaScript",
+            "HTML",
+            "CSS",
+            "Node.js",
+            "Express",
+            "EJS",
+            "SQLite",
+            "SQL",
+            "REST API"
+        ],
 
     };
 

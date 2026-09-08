@@ -1054,98 +1054,812 @@ button {
     object-fit: cover;
 }
 
-/* =========================
-   SKILLS
-========================= */
+/* =========================================================
+   SKILLS MAP
+   ========================================================= */
 
-.skills-grid {
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    border-top: 1px solid var(--border);
-    border-left: 1px solid var(--border);
+.skills-map-section {
+    overflow: hidden;
 }
 
 
-.skill {
-    min-height: 130px;
+/* =========================================================
+   MAP
+   ========================================================= */
 
-    padding: 25px;
+.skills-map {
+    width: 100%;
+}
 
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.skills-map-header {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
 
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 18px;
+
+    font-family: monospace;
+    font-size: 11px;
+
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    color: var(--text-muted);
+}
+
+.skills-map-header > span:first-child {
+    color: var(--text-soft);
+}
+
+.skills-map-hint {
+    font-size: 10px;
+
+    letter-spacing: 0.6px;
+    text-transform: none;
+}
+
+
+/* =========================================================
+   CANVAS
+   ========================================================= */
+
+.skills-map-canvas {
+    position: relative;
+
+    width: 100%;
+
+    border: 1px solid var(--border);
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(183, 255, 74, 0.045),
+            transparent 34%
+        ),
+        var(--bg);
+
+    overflow: hidden;
+}
+
+
+/* delikatna siatka */
+
+.skills-map-canvas::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+        );
+
+    background-size: 40px 40px;
+
+    mask-image:
+        radial-gradient(
+            circle at center,
+            black 0%,
+            transparent 75%
+        );
+
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   SVG
+   ========================================================= */
+
+#skills-map-svg {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    min-height: 680px;
+}
+
+
+/* =========================================================
+   CONNECTIONS
+   ========================================================= */
+
+.skills-map-connection {
+    fill: none;
+
+    stroke: var(--border);
+
+    stroke-width: 1;
+
+    opacity: 0.35;
 
     transition:
-        background 0.2s ease;
+        stroke 0.25s ease,
+        stroke-width 0.25s ease,
+        opacity 0.25s ease;
 }
 
 
-.skill:hover {
-    background: var(--card);
+/* DAWID → SEKTOR */
+
+.skills-sector-connection {
+    stroke: var(--border-light);
+
+    stroke-width: 1;
+
+    opacity: 0.45;
 }
 
 
-.skill strong {
-    font-size: 17px;
+/* SEKTOR → TECHNOLOGIA */
 
-    letter-spacing: -0.2px;
+.skills-technology-connection {
+    stroke: var(--border);
+
+    stroke-width: 1;
+
+    opacity: 0.35;
 }
 
 
-.skill span {
-    color: var(--text-muted);
+/* TECHNOLOGIA → PROJEKT */
+
+.skills-project-connection {
+    stroke: var(--accent);
+
+    stroke-width: 1;
+
+    opacity: 0.75;
+}
+
+
+/* aktywne połączenie */
+
+.skills-map-connection.active {
+    stroke: var(--accent);
+
+    stroke-width: 2;
+
+    opacity: 1;
+
+    filter: url(#skills-glow);
+}
+
+
+/* połączenie aktywnego sektora */
+
+.skills-map-connection.sector-active {
+    opacity: 0.5;
+}
+
+
+/* przygaszone */
+
+.skills-map-connection.dimmed {
+    opacity: 0.08;
+}
+
+
+/* =========================================================
+   SECTORS
+   ========================================================= */
+
+.skills-map-sector {
+    cursor: pointer;
+
+    opacity: 1;
+
+    transition:
+        opacity 0.25s ease;
+}
+
+
+/* punkt sektora */
+
+.skills-sector-dot {
+    fill: var(--card);
+
+    stroke: var(--text-muted);
+
+    stroke-width: 1.5;
+
+    transition:
+        fill 0.25s ease,
+        stroke 0.25s ease,
+        filter 0.25s ease;
+}
+
+
+/* nazwa sektora */
+
+.skills-sector-label {
+    fill: var(--text-soft);
 
     font-family: monospace;
 
     font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 1.6px;
+
+    pointer-events: none;
+
+    transition:
+        fill 0.25s ease,
+        opacity 0.25s ease;
 }
 
 
-.skills-extra {
-    display: grid;
+/* obszar hover */
 
-    grid-template-columns: repeat(3, 1fr);
+.skills-sector-hit {
+    fill: transparent;
 
-    margin-top: 18px;
+    stroke: none;
 
-    border-top: 1px solid var(--border);
+    cursor: pointer;
 }
 
 
-.skills-extra-column {
-    min-height: 120px;
+/* aktywny sektor */
 
-    padding: 25px 30px;
+.skills-map-sector.active {
+    opacity: 1;
+}
 
-    border-right: 1px solid var(--border);
+.skills-map-sector.active .skills-sector-dot {
+    fill: rgba(183, 255, 74, 0.08);
+
+    stroke: var(--accent);
+
+    stroke-width: 2;
+
+    filter: url(#skills-glow);
+}
+
+.skills-map-sector.active .skills-sector-label {
+    fill: var(--accent);
 }
 
 
-.skills-extra-column:last-child {
-    border-right: 0;
+/* przygaszony sektor */
+
+.skills-map-sector.dimmed {
+    opacity: 0.25;
 }
 
 
-.skills-extra-column h3 {
-    font-size: 14px;
+/* =========================================================
+   TECHNOLOGIES
+   ========================================================= */
 
-    text-transform: uppercase;
+.skills-map-technology {
+    cursor: pointer;
+
+    opacity: 1;
+
+    transition:
+        opacity 0.25s ease;
+}
+
+
+/* punkt technologii */
+
+.skills-technology-dot {
+    fill: var(--card);
+
+    stroke: var(--text-soft);
+
+    stroke-width: 1.5;
+
+    transition:
+        fill 0.25s ease,
+        stroke 0.25s ease,
+        filter 0.25s ease;
+}
+
+
+/* tekst technologii */
+
+.skills-technology-label {
+    fill: var(--text);
+
+    font-family: monospace;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.2px;
+
+    pointer-events: none;
+
+    transition:
+        fill 0.25s ease,
+        opacity 0.25s ease;
+}
+
+
+/* większy niewidzialny obszar hover */
+
+.skills-technology-hit {
+    fill: transparent;
+
+    stroke: none;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   TECHNOLOGY — SECTOR HOVER
+   ========================================================= */
+
+.skills-map-technology.sector-active {
+    opacity: 1;
+}
+
+.skills-map-technology.sector-active .skills-technology-dot {
+    stroke: var(--accent);
+}
+
+.skills-map-technology.sector-active .skills-technology-label {
+    fill: var(--text);
+}
+
+
+/* =========================================================
+   TECHNOLOGY — ACTIVE
+   ========================================================= */
+
+.skills-map-technology.active {
+    opacity: 1;
+}
+
+.skills-map-technology.active .skills-technology-dot {
+    fill: rgba(183, 255, 74, 0.12);
+
+    stroke: var(--accent);
+
+    stroke-width: 2.5;
+
+    filter: url(#skills-glow);
+}
+
+.skills-map-technology.active .skills-technology-label {
+    fill: var(--accent);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   TECHNOLOGY — DIMMED
+   ========================================================= */
+
+.skills-map-technology.dimmed {
+    opacity: 0.45;
+}
+
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+
+.skills-map-project {
+    pointer-events: none;
+
+    opacity: 0;
+
+    animation:
+        skills-project-in 0.25s ease forwards;
+}
+
+
+@keyframes skills-project-in {
+
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* punkt projektu */
+
+.skills-project-dot {
+    fill: var(--accent);
+
+    stroke: var(--bg);
+
+    stroke-width: 2;
+
+    filter: url(#skills-glow);
+}
+
+
+/* nazwa projektu */
+
+.skills-project-label {
+    fill: var(--text);
+
+    font-family: monospace;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.2px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CENTER
+   ========================================================= */
+
+.skills-map-center {
+    pointer-events: none;
+}
+
+
+/* zewnętrzny ring */
+
+.skills-center-ring-outer {
+    fill: none;
+
+    stroke: var(--border-light);
+
+    stroke-width: 1;
+
+    opacity: 0.7;
+}
+
+
+/* wewnętrzny ring */
+
+.skills-center-ring-inner {
+    fill: var(--card);
+
+    stroke: var(--accent);
+
+    stroke-width: 1.5;
+
+    opacity: 0.95;
+
+    transition:
+        filter 0.25s ease;
+}
+
+
+/* DAWID */
+
+.skills-center-name {
+    fill: var(--text);
+
+    font-family: monospace;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+/* DEVELOPER */
+
+.skills-center-role {
+    fill: var(--text-muted);
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    font-weight: 500;
+
+    letter-spacing: 2px;
+}
+
+
+/* centrum przy aktywnej technologii */
+
+#skills-map-svg.technology-active
+.skills-center-ring-inner {
+    filter: url(#skills-glow);
+}
+
+
+/* =========================================================
+   DETAILS
+   ========================================================= */
+
+.skills-map-details {
+    position: absolute;
+
+    left: 28px;
+    bottom: 24px;
+
+    min-width: 190px;
+
+    pointer-events: none;
+}
+
+
+/* placeholder */
+
+.skills-details-placeholder {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: var(--text-muted);
+
+    font-family: monospace;
+
+    font-size: 10px;
+
+    letter-spacing: 0.6px;
+}
+
+
+/* kreska */
+
+.skills-details-line {
+    display: block;
+
+    width: 20px;
+    height: 1px;
+
+    background: var(--border-light);
+}
+
+
+/* aktywny panel */
+
+.skills-details-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding-left: 12px;
+
+    border-left: 1px solid var(--accent);
+}
+
+
+/* kategoria */
+
+.skills-details-category {
+    color: var(--text-muted);
+
+    font-family: monospace;
+
+    font-size: 9px;
 
     letter-spacing: 1.2px;
 }
 
 
-.skills-extra-column p {
-    margin-top: 10px;
+/* technologia */
 
-    color: var(--text-muted);
+.skills-details-title {
+    color: var(--accent);
+
+    font-family: monospace;
 
     font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* projekty */
+
+.skills-details-projects {
+    color: var(--text-soft);
+
+    font-family: monospace;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   TECHNOLOGY ACTIVE STATE
+   ========================================================= */
+
+/* sektory poza aktywnym */
+
+#skills-map-svg.technology-active
+.skills-map-sector.dimmed {
+    opacity: 0.2;
+}
+
+
+/* technologie poza aktywnym sektorem */
+
+#skills-map-svg.technology-active
+.skills-map-technology.dimmed {
+    opacity: 0.45;
+}
+
+
+/* linie poza aktywnym sektorem */
+
+#skills-map-svg.technology-active
+.skills-map-connection.dimmed {
+    opacity: 0.08;
+}
+
+
+/* aktywny sektor */
+
+#skills-map-svg.technology-active
+.skills-map-sector.active {
+    opacity: 1;
+}
+
+
+/* aktywna technologia */
+
+#skills-map-svg.technology-active
+.skills-map-technology.active {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   SECTOR ACTIVE STATE
+   ========================================================= */
+
+#skills-map-svg.sector-active
+.skills-map-sector.dimmed {
+    opacity: 0.25;
+}
+
+#skills-map-svg.sector-active
+.skills-map-technology.dimmed {
+    opacity: 0.55;
+}
+
+#skills-map-svg.sector-active
+.skills-map-connection.dimmed {
+    opacity: 0.1;
+}
+
+
+/*
+    Hover sektora nie powoduje mocnego glow.
+*/
+
+#skills-map-svg.sector-active
+.skills-map-connection.sector-active {
+    stroke: var(--border-light);
+
+    opacity: 0.5;
+
+    filter: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    #skills-map-svg {
+        min-height: 580px;
+    }
+
+    .skills-sector-label {
+        font-size: 10px;
+
+        letter-spacing: 1.3px;
+    }
+
+    .skills-technology-label {
+        font-size: 10px;
+    }
+
+    .skills-project-label {
+        font-size: 9px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .skills-map-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    .skills-map-hint {
+        font-size: 9px;
+    }
+
+    #skills-map-svg {
+        min-height: 500px;
+    }
+
+    .skills-sector-label {
+        font-size: 8px;
+
+        letter-spacing: 1px;
+    }
+
+    .skills-technology-label {
+        font-size: 8px;
+    }
+
+    .skills-project-label {
+        font-size: 8px;
+    }
+
+    .skills-center-name {
+        font-size: 15px;
+    }
+
+    .skills-center-role {
+        font-size: 8px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    #skills-map-svg {
+        min-height: 420px;
+    }
+
+    .skills-map-details {
+        display: none;
+    }
+
+    .skills-sector-label {
+        font-size: 7px;
+    }
+
+    .skills-technology-label {
+        font-size: 7px;
+    }
+
+    .skills-project-label {
+        font-size: 7px;
+    }
 }
 
 
