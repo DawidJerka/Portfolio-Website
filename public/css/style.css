@@ -1455,7 +1455,12 @@ button {
    ========================================================= */
 
 .skills-map-technology.dimmed {
-    opacity: 0.45;
+    opacity: 0.1;
+}
+
+.skills-map-technology.dimmed .skills-technology-label,
+.skills-map-technology.dimmed .skills-technology-dot {
+    opacity: 0.1;
 }
 
 
@@ -1701,7 +1706,7 @@ button {
 
 #skills-map-svg.technology-active
 .skills-map-sector.dimmed {
-    opacity: 0.2;
+    opacity: 0.65;
 }
 
 

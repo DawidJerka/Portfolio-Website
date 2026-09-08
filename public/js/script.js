@@ -1887,13 +1887,11 @@ function renderTechnologies() {
 }
 
 
-/* =========================================================
-   SECTOR HOVER
-   ========================================================= */
+// =========================================================
+// SECTOR HOVER
+// =========================================================
 
-function activateSector(
-    sectorId
-) {
+function activateSector(sectorId) {
 
     clearActiveMap(false);
 
@@ -1903,9 +1901,10 @@ function activateSector(
     );
 
 
-    /*
-        Sektory
-    */
+    // =====================================================
+    // SECTORS
+    // =====================================================
+
     document
         .querySelectorAll(
             ".skills-map-sector"
@@ -1917,10 +1916,12 @@ function activateSector(
                     sector.dataset.sector ===
                     sectorId;
 
+
                 sector.classList.toggle(
                     "active",
                     active
                 );
+
 
                 sector.classList.toggle(
                     "dimmed",
@@ -1930,9 +1931,10 @@ function activateSector(
         );
 
 
-    /*
-        Technologie
-    */
+    // =====================================================
+    // TECHNOLOGIES
+    // =====================================================
+
     document
         .querySelectorAll(
             ".skills-map-technology"
@@ -1940,26 +1942,37 @@ function activateSector(
         .forEach(
             technology => {
 
-                const active =
+                const sameSector =
                     technology.dataset.sector ===
                     sectorId;
 
+
+                /*
+                    Technologie aktywnego sektora
+                    pozostają normalnie widoczne.
+
+                    Technologie pozostałych sektorów
+                    zostają lekko wygaszone.
+                */
+
                 technology.classList.toggle(
                     "sector-active",
-                    active
+                    sameSector
                 );
+
 
                 technology.classList.toggle(
                     "dimmed",
-                    !active
+                    !sameSector
                 );
             }
         );
 
 
-    /*
-        Połączenia
-    */
+    // =====================================================
+    // CONNECTIONS
+    // =====================================================
+
     document
         .querySelectorAll(
             ".skills-map-connection"
@@ -1967,31 +1980,46 @@ function activateSector(
         .forEach(
             connection => {
 
-                const active =
+                const sameSector =
                     connection.dataset.sector ===
                     sectorId;
 
+
                 connection.classList.toggle(
                     "sector-active",
-                    active
+                    sameSector
                 );
+
 
                 connection.classList.toggle(
                     "dimmed",
-                    !active
+                    !sameSector
                 );
             }
         );
 
 
+    // =====================================================
+    // PROJECTS
+    // =====================================================
+
     skillsMap.projects.innerHTML =
         "";
 
 
+    // =====================================================
+    // DETAILS
+    // =====================================================
+
     skillsMap.details.innerHTML = `
         <div class="skills-details-placeholder">
+
             <span class="skills-details-line"></span>
-            <span>Najedź na technologię</span>
+
+            <span>
+                Najedź na technologię
+            </span>
+
         </div>
     `;
 }
