@@ -3452,3 +3452,83 @@ main > .section .section-eyebrow::before {
     color: var(--text-muted);
     border-color: var(--border);
 }
+
+@media (max-width: 600px) {
+
+    /* =================================
+       PROJECTS — FULL SCREEN WIDTH
+    ================================= */
+
+    .section-projects > .container {
+        width: 100%;
+        max-width: none;
+    }
+
+
+    /* Teksty nadal z normalnym marginesem */
+
+    .section-projects .section-heading,
+    .section-projects .section-intro,
+    .section-projects .project-filters {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+
+    /* Grid dokładnie na szerokość rodzica */
+
+    .section-projects .projects-grid {
+        width: 100%;
+
+        grid-template-columns:
+            minmax(0, 1fr);
+
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+
+    /* Karta nie może rozszerzyć grida */
+
+    .section-projects .project-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+    }
+
+
+    /* Bardzo ważne przy flex/grid */
+
+    .section-projects .project-content,
+    .section-projects .project-top,
+    .section-projects .project-card-tags {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+
+    /* Media dokładnie od krawędzi do krawędzi karty */
+
+    .section-projects .project-image {
+        width: auto;
+        max-width: none;
+
+        margin:
+            -25px
+            -25px
+            25px;
+    }
+
+
+    .section-projects .project-image img,
+    .section-projects .project-image video {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
