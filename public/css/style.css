@@ -3228,3 +3228,15 @@ footer {
     }
 
 }
+
+main {
+    counter-reset: section;
+}
+
+main > .section {
+    counter-increment: section;
+}
+
+main > .section .section-eyebrow::before {
+    content: counter(section, decimal-leading-zero);
+}
