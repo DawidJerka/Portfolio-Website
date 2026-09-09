@@ -5,11 +5,97 @@
 const projectsGrid = document.getElementById("projects-grid");
 const projectsLoading = document.getElementById("projects-loading");
 const projectsError = document.getElementById("projects-error");
+const projectFilters = document.getElementById("project-filters");
 
 const projectModal = document.getElementById("project-modal");
 const modalOverlay = document.getElementById("modal-overlay");
 const modalClose = document.getElementById("modal-close");
 const modalBody = document.getElementById("modal-body");
+
+
+// =========================
+// PROJECT FILTER CONFIG
+// =========================
+
+let allProjects = [];
+let activeProjectFilter = "all";
+
+const featuredProjectByFilter = {
+    all: "survivors3d",
+    game: "survivors3d",
+    data: "car-price-prediction",
+    web: "portfolio",
+    mobile: "car-brand-classification"
+};
+
+// =========================
+// FIT PROJECT CARD TECHNOLOGIES
+// ========================
+
+function fitProjectCardTechnologies() {
+
+    const containers =
+        document.querySelectorAll(
+            ".project-card-tags"
+        );
+
+    containers.forEach(container => {
+
+        // Usuń poprzedni licznik +N
+        container
+            .querySelectorAll(".tag-more")
+            .forEach(element => element.remove());
+
+        const tags = [
+            ...container.querySelectorAll(".tag")
+        ];
+
+        // Najpierw pokaż wszystkie
+        tags.forEach(tag => {
+            tag.style.display = "";
+        });
+
+        if (
+            container.scrollWidth <=
+            container.clientWidth
+        ) {
+            return;
+        }
+
+        const moreTag =
+            document.createElement("span");
+
+        moreTag.className =
+            "tag tag-more";
+
+        container.appendChild(moreTag);
+
+        let hiddenCount = 0;
+
+        // Chowamy od końca, czyli
+        // najmniej ważne technologie
+        for (
+            let i = tags.length - 1;
+            i >= 0;
+            i--
+        ) {
+
+            tags[i].style.display = "none";
+
+            hiddenCount++;
+
+            moreTag.textContent =
+                `+${hiddenCount}`;
+
+            if (
+                container.scrollWidth <=
+                container.clientWidth
+            ) {
+                break;
+            }
+        }
+    });
+}
 
 
 // =========================
@@ -26,11 +112,15 @@ async function loadProjects() {
             throw new Error("Nie udało się pobrać projektów.");
         }
 
-        const projects = await response.json();
+        allProjects = await response.json();
 
         projectsLoading.hidden = true;
 
-        renderProjects(projects);
+        if (projectFilters) {
+            projectFilters.hidden = false;
+        }
+
+        renderProjectsForFilter(activeProjectFilter);
 
     } catch (error) {
 
@@ -46,18 +136,176 @@ async function loadProjects() {
 
 
 // =========================
+// PROJECT FILTERING
+// =========================
+
+function projectMatchesFilter(project, filter) {
+
+    if (filter === "all") {
+        return true;
+    }
+
+    const type = String(project.type || "")
+        .trim()
+        .toLowerCase();
+
+    const technologies = Array.isArray(project.technologies)
+        ? project.technologies
+            .join(" ")
+            .toLowerCase()
+        : "";
+
+    const searchable = `${type} ${technologies}`;
+
+    if (filter === "game") {
+        return (
+            type.includes("game development") ||
+            searchable.includes("unity") ||
+            searchable.includes("godot")
+        );
+    }
+
+    if (filter === "data") {
+        return (
+            type.includes("data science") ||
+            type.includes("machine learning") ||
+            type.includes("reinforcement learning") ||
+            searchable.includes("data analysis") ||
+            searchable.includes("pandas") ||
+            searchable.includes("scikit-learn") ||
+            searchable.includes("computer vision") ||
+            searchable.includes("yolo")
+        );
+    }
+
+    if (filter === "web") {
+        return (
+            type.includes("web development") ||
+            searchable.includes("node.js") ||
+            searchable.includes("express") ||
+            searchable.includes("ejs") ||
+            searchable.includes("rest api")
+        );
+    }
+
+    if (filter === "mobile") {
+        return (
+            type.includes("android") ||
+            type.includes("mobile") ||
+            searchable.includes("android studio")
+        );
+    }
+
+    return false;
+}
+
+
+function renderProjectsForFilter(filter) {
+
+    const filteredProjects = allProjects.filter(
+        project => projectMatchesFilter(project, filter)
+    );
+
+    const preferredFeaturedSlug =
+        featuredProjectByFilter[filter];
+
+    const featuredProject =
+        filteredProjects.find(
+            project =>
+                project.slug === preferredFeaturedSlug
+        ) || filteredProjects[0];
+
+    const orderedProjects = featuredProject
+        ? [
+            featuredProject,
+            ...filteredProjects.filter(
+                project =>
+                    project.slug !== featuredProject.slug
+            )
+        ]
+        : [];
+
+    renderProjects(
+        orderedProjects,
+        featuredProject?.slug || null
+    );
+}
+
+
+function setProjectFilter(filter) {
+
+    if (!Object.prototype.hasOwnProperty.call(
+        featuredProjectByFilter,
+        filter
+    )) {
+        return;
+    }
+
+    activeProjectFilter = filter;
+
+    if (projectFilters) {
+        projectFilters
+            .querySelectorAll(".project-filter")
+            .forEach(button => {
+
+                const isActive =
+                    button.dataset.filter === filter;
+
+                button.classList.toggle(
+                    "active",
+                    isActive
+                );
+
+                button.setAttribute(
+                    "aria-pressed",
+                    String(isActive)
+                );
+            });
+    }
+
+    renderProjectsForFilter(filter);
+}
+
+
+function setupProjectFilters() {
+
+    if (!projectFilters) {
+        return;
+    }
+
+    projectFilters.addEventListener(
+        "click",
+        event => {
+
+            const button = event.target.closest(
+                ".project-filter"
+            );
+
+            if (!button) {
+                return;
+            }
+
+            setProjectFilter(
+                button.dataset.filter
+            );
+        }
+    );
+}
+
+
+// =========================
 // RENDER PROJECTS
 // =========================
 
-function renderProjects(projects) {
+function renderProjects(projects, featuredSlug = null) {
 
     projectsGrid.innerHTML = "";
 
     if (projects.length === 0) {
 
         projectsGrid.innerHTML = `
-            <div class="projects-state">
-                Brak projektów.
+            <div class="projects-state projects-state-grid">
+                Brak projektów w tej kategorii.
             </div>
         `;
 
@@ -71,8 +319,7 @@ function renderProjects(projects) {
 
         article.className = "project-card";
 
-        // Pierwszy projekt jest wyróżniony
-        if (index === 0) {
+        if (project.slug === featuredSlug) {
             article.classList.add("featured");
         }
 
@@ -108,12 +355,10 @@ function renderProjects(projects) {
                     )}
                 </p>
 
-                <div class="tags">
-
+                <div class="tags project-card-tags">
                     ${renderTechnologies(
                         project.technologies
                     )}
-
                 </div>
 
                 <button
@@ -138,7 +383,7 @@ function renderProjects(projects) {
     // =========================
 
     const buttons =
-        document.querySelectorAll(
+        projectsGrid.querySelectorAll(
             ".project-more"
         );
 
@@ -154,6 +399,10 @@ function renderProjects(projects) {
                 openProject(slug);
             }
         );
+    });
+
+    requestAnimationFrame(() => {
+        fitProjectCardTechnologies();
     });
 }
 
@@ -2547,6 +2796,7 @@ initSkillsMap();
 // START PROJECTS
 // =========================================================
 
+setupProjectFilters();
 loadProjects();
 
 /* =========================
@@ -2695,4 +2945,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     typeCode();
+});
+
+let technologyResizeFrame;
+
+window.addEventListener("resize", () => {
+
+    cancelAnimationFrame(
+        technologyResizeFrame
+    );
+
+    technologyResizeFrame =
+        requestAnimationFrame(() => {
+            fitProjectCardTechnologies();
+        });
 });

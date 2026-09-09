@@ -44,16 +44,23 @@ app.get("/api/projects", (req, res) => {
             p.github_url,
             p.demo_url,
             p.media_url,
-            GROUP_CONCAT(t.name) AS technologies
+
+            (
+                SELECT GROUP_CONCAT(name)
+                FROM (
+                    SELECT t.name AS name
+                    FROM project_technologies pt2
+
+                    JOIN technologies t
+                        ON t.id = pt2.technology_id
+
+                    WHERE pt2.project_id = p.id
+
+                    ORDER BY pt2.position ASC
+                )
+            ) AS technologies
+
         FROM projects p
-
-        LEFT JOIN project_technologies pt
-            ON p.id = pt.project_id
-
-        LEFT JOIN technologies t
-            ON pt.technology_id = t.id
-
-        GROUP BY p.id
 
         ORDER BY
             CASE
@@ -117,18 +124,25 @@ app.get("/api/projects/:slug", (req, res) => {
             p.github_url,
             p.demo_url,
             p.media_url,
-            GROUP_CONCAT(t.name) AS technologies
+
+            (
+                SELECT GROUP_CONCAT(name)
+                FROM (
+                    SELECT t.name AS name
+                    FROM project_technologies pt2
+
+                    JOIN technologies t
+                        ON t.id = pt2.technology_id
+
+                    WHERE pt2.project_id = p.id
+
+                    ORDER BY pt2.position ASC
+                )
+            ) AS technologies
+
         FROM projects p
 
-        LEFT JOIN project_technologies pt
-            ON p.id = pt.project_id
-
-        LEFT JOIN technologies t
-            ON pt.technology_id = t.id
-
         WHERE p.slug = ?
-
-        GROUP BY p.id
     `;
 
 

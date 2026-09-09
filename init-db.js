@@ -48,6 +48,7 @@ db.serialize(() => {
         CREATE TABLE IF NOT EXISTS project_technologies (
             project_id INTEGER NOT NULL,
             technology_id INTEGER NOT NULL,
+            position INTEGER NOT NULL,
 
             PRIMARY KEY (project_id, technology_id),
 
@@ -414,15 +415,16 @@ db.serialize(() => {
     const relationStatement = db.prepare(`
         INSERT OR IGNORE INTO project_technologies (
             project_id,
-            technology_id
+            technology_id,
+            position
         )
         SELECT
             p.id,
-            t.id
-        FROM projects p
-        CROSS JOIN technologies t
+            t.id,
+            ?
+        FROM projects p, technologies t
         WHERE p.slug = ?
-        AND t.name = ?
+            AND t.name = ?
     `);
 
 
@@ -430,13 +432,13 @@ db.serialize(() => {
         ([slug, projectTechnologies]) => {
 
             projectTechnologies.forEach(
-                technology => {
+                (technology, index) => {
 
                     relationStatement.run(
+                        index,
                         slug,
                         technology
                     );
-
                 }
             );
 
