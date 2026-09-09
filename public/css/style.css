@@ -196,6 +196,53 @@ button {
     color: var(--bg);
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.language-switch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--text-muted);
+
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.language-option {
+    padding: 4px 2px;
+
+    border: 0;
+    background: transparent;
+
+    color: var(--text-muted);
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.language-option:hover {
+    color: var(--text);
+}
+
+.language-option.active {
+    color: var(--accent);
+}
+
+.language-switch > span {
+    opacity: 0.35;
+}
 
 /* =========================
    HERO

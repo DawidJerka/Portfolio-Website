@@ -59,33 +59,18 @@
 
             <div class="nav-actions">
 
-                <div
-                    class="language-switch"
-                    role="group"
-                    aria-label="Wybór języka"
-                    data-i18n-aria-label="language.label"
-                >
-                    <button
-                        type="button"
-                        class="language-option active"
-                        data-language="pl"
-                        aria-pressed="true"
-                    >
+                <div class="language-switch" role="group" aria-label="Wybór języka"
+                    data-i18n-aria-label="language.label">
+                    <button type="button" class="language-option" data-language="pl" aria-pressed="true">
                         PL
                     </button>
 
                     <span>/</span>
 
-                    <button
-                        type="button"
-                        class="language-option"
-                        data-language="en"
-                        aria-pressed="false"
-                    >
+                    <button type="button" class="language-option" data-language="en" aria-pressed="false">
                         EN
                     </button>
                 </div>
-
 
                 <a href="#contact" class="nav-button" data-i18n="nav.contact">
                     Kontakt
@@ -118,14 +103,12 @@
 
                         <span class="status-dot"></span>
 
-                        <span data-i18n="hero.eyebrow">
-                            Absolwent informatyki stosowanej
-                        </span>
+                        Absolwent informatyki stosowanej
 
                     </div>
 
 
-                    <h1 data-i18n-html="hero.title">
+                    <h1>
 
                         Cześć,<br>
 
@@ -135,7 +118,7 @@
                     </h1>
 
 
-                    <p class="hero-subtitle" data-i18n="hero.subtitle">
+                    <p class="hero-subtitle">
 
                         Tworzę gry, programuję
                         i rozwijam własne projekty.
@@ -143,7 +126,7 @@
                     </p>
 
 
-                    <p class="hero-description" data-i18n="hero.description">
+                    <p class="hero-description">
 
                         Jestem absolwentem informatyki stosowanej
                         ze specjalizacją Data Science. Interesuję się
@@ -159,16 +142,14 @@
 
                         <a href="#projects" class="button button-primary">
 
-                            <span data-i18n="hero.projects">
-                                Zobacz projekty
-                            </span>
+                            Zobacz projekty
 
                             <span>↗</span>
 
                         </a>
 
 
-                        <a href="#about" class="button button-secondary" data-i18n="hero.about">
+                        <a href="#about" class="button button-secondary">
 
                             Poznaj mnie
 
@@ -316,7 +297,7 @@
 
                     <span class="section-eyebrow"></span>
 
-                    <h2 data-i18n="about.title">
+                    <h2>
                         O mnie
                     </h2>
 
@@ -335,7 +316,7 @@
 
                     <div class="about-text">
 
-                        <h3 data-i18n-html="about.heading">
+                        <h3>
                             Łączę
                             <span class="accent-text">techniczne</span>
                             i
@@ -343,19 +324,19 @@
                             podejście.
                         </h3>
 
-                        <p data-i18n="about.p1">
+                        <p>
                             Ukończyłem Politechnikę Bydgoską na kierunku informatyka stosowana,
                             ze specjalizacją Data Science. To właśnie na studiach i przy własnych
                             projektach rozwijałem swoje umiejętności programistyczne.
                         </p>
 
-                        <p data-i18n="about.p2">
+                        <p>
                             Najbardziej interesuje mnie programowanie i game development.
                             Lubię wymyślać, budować i sprawdzać, jak z pomysłu zrobić coś,
                             co faktycznie działa.
                         </p>
 
-                        <p data-i18n="about.p3">
+                        <p>
                             Przez wiele lat pracowałem też w branży kreatywnej jako instruktor
                             tańca. Dzięki temu nauczyłem się patrzeć na problemy nieszablonowo
                             i szukać różnych sposobów na ich rozwiązanie.
@@ -386,7 +367,7 @@
 
                     <span class="section-eyebrow"></span>
 
-                    <h2 data-i18n="education.title">
+                    <h2>
                         Edukacja
                     </h2>
 
@@ -408,7 +389,7 @@
                         <div class="timeline-content">
 
 
-                            <span class="timeline-label" data-i18n="education.studies">
+                            <span class="timeline-label">
                                 Studia
                             </span>
 
@@ -418,20 +399,20 @@
                             </h3>
 
 
-                            <h4 data-i18n="education.degree">
+                            <h4>
                                 Informatyka stosowana
                                 — specjalizacja Data Science
                             </h4>
 
 
-                            <p data-i18n="education.thesisLabel">
+                            <p>
 
                                 Temat pracy dyplomowej:
 
                             </p>
 
 
-                            <p class="thesis" data-i18n="education.thesis">
+                            <p class="thesis">
 
                                 „Projekt i implementacja gry
                                 z gatunku Grand Strategy na
@@ -458,18 +439,18 @@
                         <div class="timeline-content">
 
 
-                            <span class="timeline-label" data-i18n="education.activity">
+                            <span class="timeline-label">
                                 Działalność studencka
                             </span>
 
 
-                            <h3 data-i18n="education.club">
+                            <h3>
                                 Studenckie Koło Naukowe
                                 Twórców Gier
                             </h3>
 
 
-                            <p data-i18n="education.clubDescription">
+                            <p>
 
                                 Udział w działalności koła
                                 związanej z tworzeniem gier
@@ -506,14 +487,14 @@
                 <div class="section-heading">
 
                     <span class="section-eyebrow"></span>
-                    <h2 data-i18n="projects.title">
+                    <h2>
                         Projekty
                     </h2>
 
                 </div>
 
 
-                <p class="section-intro" data-i18n="projects.intro">
+                <p class="section-intro">
 
                     Najważniejszą częścią mojego portfolio
                     są projekty — od gier i sztucznej inteligencji
@@ -522,66 +503,30 @@
                 </p>
 
 
-                <div
-                    id="project-filters"
-                    class="project-filters"
-                    aria-label="Filtruj projekty"
-                    data-i18n-aria-label="projects.filtersLabel"
-                    hidden
-                >
-                    <button
-                        class="project-filter active"
-                        type="button"
-                        data-filter="all"
-                        data-i18n="projects.filters.all"
-                        aria-pressed="true"
-                    >
+                <div id="project-filters" class="project-filters" aria-label="Filtruj projekty" hidden>
+                    <button class="project-filter active" type="button" data-filter="all" aria-pressed="true">
                         ALL
                     </button>
 
-                    <button
-                        class="project-filter"
-                        type="button"
-                        data-filter="game"
-                        data-i18n="projects.filters.game"
-                        aria-pressed="false"
-                    >
+                    <button class="project-filter" type="button" data-filter="game" aria-pressed="false">
                         GAME DEV
                     </button>
 
-                    <button
-                        class="project-filter"
-                        type="button"
-                        data-filter="data"
-                        data-i18n="projects.filters.data"
-                        aria-pressed="false"
-                    >
+                    <button class="project-filter" type="button" data-filter="data" aria-pressed="false">
                         DATA &amp; AI
                     </button>
 
-                    <button
-                        class="project-filter"
-                        type="button"
-                        data-filter="web"
-                        data-i18n="projects.filters.web"
-                        aria-pressed="false"
-                    >
+                    <button class="project-filter" type="button" data-filter="web" aria-pressed="false">
                         WEB
                     </button>
 
-                    <button
-                        class="project-filter"
-                        type="button"
-                        data-filter="mobile"
-                        data-i18n="projects.filters.mobile"
-                        aria-pressed="false"
-                    >
+                    <button class="project-filter" type="button" data-filter="mobile" aria-pressed="false">
                         MOBILE
                     </button>
                 </div>
 
 
-                <div id="projects-loading" class="projects-state" data-i18n="projects.loading">
+                <div id="projects-loading" class="projects-state">
 
                     Ładowanie projektów...
 
@@ -589,7 +534,7 @@
 
 
 
-                <div id="projects-error" class="projects-state" data-i18n="projects.error" hidden>
+                <div id="projects-error" class="projects-state" hidden>
 
                     Nie udało się pobrać projektów.
 
@@ -605,12 +550,12 @@
         </section>
 
         <section id="skills" class="section skills-map-section">
-
-            <div class="container">
+            <div <section id="skills" class="section skills-map-section">
+                <div class="container">
 
                     <div class="section-heading">
                         <span class="section-eyebrow"></span>
-                        <h2 data-i18n="skills.title">Umiejętności</h2>
+                        <h2>Umiejętności</h2>
                     </div>
 
                     <div class="skills-map">
@@ -618,7 +563,7 @@
                         <div class="skills-map-header">
                             <span>TECHNOLOGY MAP</span>
 
-                            <span class="skills-map-hint" data-i18n="skills.hint">
+                            <span class="skills-map-hint">
                                 Najedź na technologię, aby zobaczyć powiązane projekty
                             </span>
                         </div>
@@ -690,7 +635,7 @@
 
                                     <span class="skills-details-line"></span>
 
-                                    <span data-i18n="skills.hover">
+                                    <span>
                                         Najedź na technologię
                                     </span>
 
@@ -703,9 +648,6 @@
                     </div>
 
                 </div>
-
-            </div>
-
         </section>
 
 
@@ -723,7 +665,7 @@
 
                     <span class="section-eyebrow"></span>
 
-                    <h2 data-i18n="experience.title">
+                    <h2>
                         Doświadczenie zawodowe
                     </h2>
 
@@ -734,18 +676,18 @@
                     <!-- SELF EMPLOYED -->
                     <article class="experience-item experience-item-right">
 
-                        <div class="experience-node" data-i18n="experience.present2025">
+                        <div class="experience-node">
                             2025 — obecnie
                         </div>
 
                         <div class="experience-content">
-                            <span class="timeline-label" data-i18n="experience.selfEmployed">Działalność własna</span>
-                            <h3 data-i18n="experience.danceInstructor">Instruktor tańca</h3>
-                            <p data-i18n="experience.selfP1">
+                            <span class="timeline-label">Działalność własna</span>
+                            <h3>Instruktor tańca</h3>
+                            <p>
                                 Prowadzę indywidualne i grupowe zajęcia taneczne
                                 oraz przygotowuję uczestników do występów i turniejów.
                             </p>
-                            <p data-i18n="experience.selfP2">
+                            <p>
                                 Samodzielnie zajmuję się organizacją grafiku,
                                 komunikacją z klientami oraz rozwojem działalności.
                             </p>
@@ -757,14 +699,14 @@
                     <!-- MATH -->
                     <article class="experience-item experience-item-left">
 
-                        <div class="experience-node" data-i18n="experience.present2021">
+                        <div class="experience-node">
                             2021 — obecnie
                         </div>
 
                         <div class="experience-content">
-                            <span class="timeline-label" data-i18n="experience.education">Edukacja</span>
-                            <h3 data-i18n="experience.mathTutor">Korepetytor matematyki</h3>
-                            <p data-i18n="experience.mathDescription">
+                            <span class="timeline-label">Edukacja</span>
+                            <h3>Korepetytor matematyki</h3>
+                            <p>
                                 Prowadzę zajęcia indywidualne i grupowe,
                                 diagnozuję trudności uczniów oraz dostosowuję
                                 metody pracy do ich potrzeb.
@@ -782,9 +724,9 @@
                         </div>
 
                         <div class="experience-content">
-                            <span class="timeline-label" data-i18n="experience.danceSchool">Szkoła Tańca TEMPO</span>
-                            <h3 data-i18n="experience.danceInstructor">Instruktor tańca</h3>
-                            <p data-i18n="experience.tempoDescription">
+                            <span class="timeline-label">Szkoła Tańca TEMPO</span>
+                            <h3>Instruktor tańca</h3>
+                            <p>
                                 Prowadziłem zajęcia indywidualne i grupowe
                                 oraz przygotowywałem tancerzy do występów i zawodów.
                             </p>
@@ -802,8 +744,8 @@
 
                         <div class="experience-content">
                             <span class="timeline-label">BLU</span>
-                            <h3 data-i18n="experience.customerAdvisor">Doradca klienta / pracownik magazynu</h3>
-                            <p data-i18n="experience.bluDescription">
+                            <h3>Doradca klienta / pracownik magazynu</h3>
+                            <p>
                                 Doradzałem klientom przy wyborze produktów
                                 oraz wspierałem bieżące funkcjonowanie magazynu.
                             </p>
@@ -831,7 +773,7 @@
 
                     <span class="section-eyebrow"></span>
 
-                    <h2 data-i18n="languages.title">Języki</h2>
+                    <h2>Języki</h2>
 
                 </div>
 
@@ -856,14 +798,14 @@
                             </span>
 
 
-                            <strong data-i18n="languages.polish">
+                            <strong>
                                 Polski
                             </strong>
 
                         </div>
 
 
-                        <span class="language-level" data-i18n="languages.native">
+                        <span class="language-level">
                             Ojczysty
                         </span>
 
@@ -907,7 +849,7 @@
                             </span>
 
 
-                            <strong data-i18n="languages.english">
+                            <strong>
                                 Angielski
                             </strong>
 
@@ -941,19 +883,19 @@
                 <div class="contact-box">
 
 
-                    <span class="eyebrow" data-i18n="contact.eyebrow">
+                    <span class="eyebrow">
                         07 / KONTAKT
                     </span>
 
 
-                    <h2 data-i18n="contact.title">
+                    <h2>
 
                         Porozmawiajmy.
 
                     </h2>
 
 
-                    <p data-i18n="contact.description">
+                    <p>
 
                         Szukam możliwości dalszego rozwoju
                         w branży IT, szczególnie w obszarze
@@ -985,7 +927,7 @@
                     </div>
 
 
-                    <div class="contact-location" data-i18n="contact.location">
+                    <div class="contact-location">
 
                         Bydgoszcz, Polska
 
@@ -1019,13 +961,7 @@
         <div class="project-modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-project-title">
 
 
-            <button
-                id="modal-close"
-                class="modal-close"
-                type="button"
-                aria-label="Zamknij"
-                data-i18n-aria-label="modal.close"
-            >
+            <button id="modal-close" class="modal-close" type="button" aria-label="Zamknij">
 
                 ×
 
@@ -1036,7 +972,7 @@
             <div id="modal-body">
 
 
-                <div class="projects-state" data-i18n="projects.loadingOne">
+                <div class="projects-state">
 
                     Ładowanie projektu...
 

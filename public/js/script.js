@@ -1,260 +1,640 @@
-// =========================
-// ELEMENTS
-// =========================
+// =========================================================
+// LANGUAGE / I18N
+// =========================================================
 
-const projectsGrid = document.getElementById("projects-grid");
-const projectsLoading = document.getElementById("projects-loading");
-const projectsError = document.getElementById("projects-error");
-const projectFilters = document.getElementById("project-filters");
+const translations = {
+    pl: {
+        "meta.title": "Dawid Jerka — Portfolio",
+        "meta.description": "Portfolio Dawida Jerki — game development, programowanie, analiza danych i projekty informatyczne.",
 
-const projectModal = document.getElementById("project-modal");
-const modalOverlay = document.getElementById("modal-overlay");
-const modalClose = document.getElementById("modal-close");
-const modalBody = document.getElementById("modal-body");
+        "language.label": "Wybór języka",
 
+        "nav.about": "O mnie",
+        "nav.projects": "Projekty",
+        "nav.skills": "Umiejętności",
+        "nav.experience": "Doświadczenie",
+        "nav.contact": "Kontakt",
 
-// =========================
-// PROJECT FILTER CONFIG
-// =========================
+        "hero.eyebrow": "Absolwent informatyki stosowanej",
+        "hero.title": `Cześć,<br>jestem <span>Dawid.</span>`,
+        "hero.subtitle": "Tworzę gry, programuję i rozwijam własne projekty.",
+        "hero.description": "Jestem absolwentem informatyki stosowanej ze specjalizacją Data Science. Interesuję się przede wszystkim tworzeniem gier, programowaniem oraz wykorzystaniem technologii do rozwiązywania ciekawych problemów.",
+        "hero.projects": "Zobacz projekty",
+        "hero.about": "Poznaj mnie",
 
-let allProjects = [];
-let activeProjectFilter = "all";
+        "about.title": "O mnie",
+        "about.heading": `Łączę <span class="accent-text">techniczne</span> i <span class="accent-text">kreatywne</span> podejście.`,
+        "about.p1": "Ukończyłem Politechnikę Bydgoską na kierunku informatyka stosowana, ze specjalizacją Data Science. To właśnie na studiach i przy własnych projektach rozwijałem swoje umiejętności programistyczne.",
+        "about.p2": "Najbardziej interesuje mnie programowanie i game development. Lubię wymyślać, budować i sprawdzać, jak z pomysłu zrobić coś, co faktycznie działa.",
+        "about.p3": "Przez wiele lat pracowałem też w branży kreatywnej jako instruktor tańca. Dzięki temu nauczyłem się patrzeć na problemy nieszablonowo i szukać różnych sposobów na ich rozwiązanie.",
 
-const featuredProjectByFilter = {
-    all: "survivors3d",
-    game: "survivors3d",
-    data: "car-price-prediction",
-    web: "portfolio",
-    mobile: "car-brand-classification"
+        "education.title": "Edukacja",
+        "education.studies": "Studia",
+        "education.degree": "Informatyka stosowana — specjalizacja Data Science",
+        "education.thesisLabel": "Temat pracy dyplomowej:",
+        "education.thesis": "„Projekt i implementacja gry z gatunku Grand Strategy na silniku Godot”",
+        "education.activity": "Działalność studencka",
+        "education.club": "Studenckie Koło Naukowe Twórców Gier",
+        "education.clubDescription": "Udział w działalności koła związanej z tworzeniem gier i rozwijaniem umiejętności programistycznych.",
+
+        "projects.title": "Projekty",
+        "projects.intro": "Najważniejszą częścią mojego portfolio są projekty — od gier i sztucznej inteligencji po analizę danych i aplikacje.",
+        "projects.loading": "Ładowanie projektów...",
+        "projects.error": "Nie udało się pobrać projektów.",
+        "projects.empty": "Brak projektów w tej kategorii.",
+        "projects.more": "Zobacz projekt →",
+        "projects.loadingOne": "Ładowanie projektu...",
+        "projects.errorOne": "Nie udało się pobrać projektu.",
+        "projects.about": "O projekcie",
+        "projects.technologies": "Technologie",
+        "projects.filtersLabel": "Filtruj projekty",
+        "projects.filters.all": "WSZYSTKIE",
+        "projects.filters.game": "GAME DEV",
+        "projects.filters.data": "DATA & AI",
+        "projects.filters.web": "WEB",
+        "projects.filters.mobile": "MOBILE",
+
+        "skills.title": "Umiejętności",
+        "skills.hint": "Najedź na technologię, aby zobaczyć powiązane projekty",
+        "skills.hover": "Najedź na technologię",
+        "skills.noProjects": "Brak powiązanych projektów",
+        "skills.oneProject": "1 powiązany projekt",
+        "skills.manyProjects": count =>
+            `${count} powiązane projekty`,
+
+        "experience.title": "Doświadczenie zawodowe",
+        "experience.present2025": "2025 — obecnie",
+        "experience.selfEmployed": "Działalność własna",
+        "experience.danceInstructor": "Instruktor tańca",
+        "experience.selfP1": "Prowadzę indywidualne i grupowe zajęcia taneczne oraz przygotowuję uczestników do występów i turniejów.",
+        "experience.selfP2": "Samodzielnie zajmuję się organizacją grafiku, komunikacją z klientami oraz rozwojem działalności.",
+        "experience.present2021": "2021 — obecnie",
+        "experience.education": "Edukacja",
+        "experience.mathTutor": "Korepetytor matematyki",
+        "experience.mathDescription": "Prowadzę zajęcia indywidualne i grupowe, diagnozuję trudności uczniów oraz dostosowuję metody pracy do ich potrzeb.",
+        "experience.danceSchool": "Szkoła Tańca TEMPO",
+        "experience.tempoDescription": "Prowadziłem zajęcia indywidualne i grupowe oraz przygotowywałem tancerzy do występów i zawodów.",
+        "experience.customerAdvisor": "Doradca klienta / pracownik magazynu",
+        "experience.bluDescription": "Doradzałem klientom przy wyborze produktów oraz wspierałem bieżące funkcjonowanie magazynu.",
+
+        "languages.title": "Języki",
+        "languages.polish": "Polski",
+        "languages.native": "Ojczysty",
+        "languages.english": "Angielski",
+
+        "contact.eyebrow": "07 / KONTAKT",
+        "contact.title": "Porozmawiajmy.",
+        "contact.description": "Szukam możliwości dalszego rozwoju w branży IT, szczególnie w obszarze programowania i game developmentu.",
+        "contact.location": "Bydgoszcz, Polska",
+
+        "media.unsupported": "Twoja przeglądarka nie obsługuje odtwarzania wideo.",
+        "modal.close": "Zamknij"
+    },
+
+    en: {
+        "meta.title": "Dawid Jerka — Portfolio",
+        "meta.description": "Dawid Jerka's portfolio — game development, programming, data analysis and software projects.",
+
+        "language.label": "Language selection",
+
+        "nav.about": "About",
+        "nav.projects": "Projects",
+        "nav.skills": "Skills",
+        "nav.experience": "Experience",
+        "nav.contact": "Contact",
+
+        "hero.eyebrow": "Applied Computer Science Graduate",
+        "hero.title": `Hi,<br>I'm <span>Dawid.</span>`,
+        "hero.subtitle": "I build games, write software and develop my own projects.",
+        "hero.description": "I am an Applied Computer Science graduate specializing in Data Science. I am particularly interested in game development, programming and using technology to solve interesting problems.",
+        "hero.projects": "View projects",
+        "hero.about": "About me",
+
+        "about.title": "About me",
+        "about.heading": `I combine a <span class="accent-text">technical</span> and <span class="accent-text">creative</span> approach.`,
+        "about.p1": "I graduated in Applied Computer Science with a specialization in Data Science from Bydgoszcz University of Science and Technology. During my studies and through my own projects, I developed my programming skills.",
+        "about.p2": "I am particularly interested in programming and game development. I enjoy coming up with ideas, building them and figuring out how to turn them into something that actually works.",
+        "about.p3": "For many years, I also worked in a creative field as a dance instructor. This taught me to approach problems from different perspectives and look for unconventional solutions.",
+
+        "education.title": "Education",
+        "education.studies": "University",
+        "education.degree": "Applied Computer Science — Data Science specialization",
+        "education.thesisLabel": "Bachelor's thesis:",
+        "education.thesis": "“Design and implementation of a Grand Strategy game using the Godot engine”",
+        "education.activity": "Student activity",
+        "education.club": "Student Game Development Club",
+        "education.clubDescription": "Participation in a student organization focused on game development and improving programming skills.",
+
+        "projects.title": "Projects",
+        "projects.intro": "Projects are the most important part of my portfolio — ranging from games and artificial intelligence to data analysis and applications.",
+        "projects.loading": "Loading projects...",
+        "projects.error": "Unable to load projects.",
+        "projects.empty": "No projects in this category.",
+        "projects.more": "View project →",
+        "projects.loadingOne": "Loading project...",
+        "projects.errorOne": "Unable to load project.",
+        "projects.about": "About the project",
+        "projects.technologies": "Technologies",
+        "projects.filtersLabel": "Filter projects",
+        "projects.filters.all": "ALL",
+        "projects.filters.game": "GAME DEV",
+        "projects.filters.data": "DATA & AI",
+        "projects.filters.web": "WEB",
+        "projects.filters.mobile": "MOBILE",
+
+        "skills.title": "Skills",
+        "skills.hint": "Hover over a technology to see related projects",
+        "skills.hover": "Hover over a technology",
+        "skills.noProjects": "No related projects",
+        "skills.oneProject": "1 related project",
+        "skills.manyProjects": count =>
+            `${count} related projects`,
+
+        "experience.title": "Professional experience",
+        "experience.present2025": "2025 — present",
+        "experience.selfEmployed": "Self-employed",
+        "experience.danceInstructor": "Dance Instructor",
+        "experience.selfP1": "I teach individual and group dance classes and prepare participants for performances and competitions.",
+        "experience.selfP2": "I independently manage scheduling, client communication and business development.",
+        "experience.present2021": "2021 — present",
+        "experience.education": "Education",
+        "experience.mathTutor": "Mathematics Tutor",
+        "experience.mathDescription": "I teach individual and group lessons, identify students' difficulties and adapt teaching methods to their needs.",
+        "experience.danceSchool": "TEMPO Dance School",
+        "experience.tempoDescription": "I taught individual and group dance classes and prepared dancers for performances and competitions.",
+        "experience.customerAdvisor": "Customer Advisor / Warehouse Associate",
+        "experience.bluDescription": "I advised customers on product selection and supported day-to-day warehouse operations.",
+
+        "languages.title": "Languages",
+        "languages.polish": "Polish",
+        "languages.native": "Native",
+        "languages.english": "English",
+
+        "contact.eyebrow": "07 / CONTACT",
+        "contact.title": "Let's talk.",
+        "contact.description": "I am looking for opportunities to continue developing my career in IT, particularly in programming and game development.",
+        "contact.location": "Bydgoszcz, Poland",
+
+        "media.unsupported": "Your browser does not support video playback.",
+        "modal.close": "Close"
+    }
 };
 
-// =========================
-// FIT PROJECT CARD TECHNOLOGIES
-// ========================
 
-function fitProjectCardTechnologies() {
+let currentLanguage =
+    localStorage.getItem(
+        "portfolio-language"
+    ) === "en"
+        ? "en"
+        : "pl";
 
-    const containers =
-        document.querySelectorAll(
-            ".project-card-tags"
-        );
 
-    containers.forEach(container => {
+function t(key, ...args) {
 
-        // Usuń poprzedni licznik +N
-        container
-            .querySelectorAll(".tag-more")
-            .forEach(element => element.remove());
+    const value =
+        translations[currentLanguage]?.[key] ??
+        translations.pl?.[key] ??
+        key;
 
-        const tags = [
-            ...container.querySelectorAll(".tag")
-        ];
-
-        // Najpierw pokaż wszystkie
-        tags.forEach(tag => {
-            tag.style.display = "";
-        });
-
-        if (
-            container.scrollWidth <=
-            container.clientWidth
-        ) {
-            return;
-        }
-
-        const moreTag =
-            document.createElement("span");
-
-        moreTag.className =
-            "tag tag-more";
-
-        container.appendChild(moreTag);
-
-        let hiddenCount = 0;
-
-        // Chowamy od końca, czyli
-        // najmniej ważne technologie
-        for (
-            let i = tags.length - 1;
-            i >= 0;
-            i--
-        ) {
-
-            tags[i].style.display = "none";
-
-            hiddenCount++;
-
-            moreTag.textContent =
-                `+${hiddenCount}`;
-
-            if (
-                container.scrollWidth <=
-                container.clientWidth
-            ) {
-                break;
-            }
-        }
-    });
+    return typeof value === "function"
+        ? value(...args)
+        : value;
 }
 
 
-// =========================
-// LOAD PROJECTS
-// =========================
+function applyTranslations() {
 
-async function loadProjects() {
+    document.documentElement.lang =
+        currentLanguage;
 
-    try {
+    document.title =
+        t("meta.title");
 
-        const response = await fetch("/api/projects");
 
-        if (!response.ok) {
-            throw new Error("Nie udało się pobrać projektów.");
-        }
-
-        allProjects = await response.json();
-
-        projectsLoading.hidden = true;
-
-        if (projectFilters) {
-            projectFilters.hidden = false;
-        }
-
-        renderProjectsForFilter(activeProjectFilter);
-
-    } catch (error) {
-
-        console.error(
-            "Błąd podczas pobierania projektów:",
-            error
+    const metaDescription =
+        document.querySelector(
+            'meta[name="description"]'
         );
 
-        projectsLoading.hidden = true;
-        projectsError.hidden = false;
+    if (metaDescription) {
+
+        metaDescription.content =
+            t("meta.description");
+    }
+
+
+    document
+        .querySelectorAll(
+            "[data-i18n]"
+        )
+        .forEach(element => {
+
+            element.textContent =
+                t(
+                    element.dataset.i18n
+                );
+        });
+
+
+    document
+        .querySelectorAll(
+            "[data-i18n-html]"
+        )
+        .forEach(element => {
+
+            element.innerHTML =
+                t(
+                    element.dataset.i18nHtml
+                );
+        });
+
+
+    document
+        .querySelectorAll(
+            "[data-i18n-aria-label]"
+        )
+        .forEach(element => {
+
+            element.setAttribute(
+                "aria-label",
+                t(
+                    element.dataset
+                        .i18nAriaLabel
+                )
+            );
+        });
+
+
+    document
+        .querySelectorAll(
+            "[data-language]"
+        )
+        .forEach(button => {
+
+            const isActive =
+                button.dataset.language ===
+                currentLanguage;
+
+            button.classList.toggle(
+                "active",
+                isActive
+            );
+
+            button.setAttribute(
+                "aria-pressed",
+                String(isActive)
+            );
+        });
+}
+
+
+async function setLanguage(language) {
+
+    if (
+        language !== "pl" &&
+        language !== "en"
+    ) {
+        return;
+    }
+
+
+    if (
+        language === currentLanguage
+    ) {
+        return;
+    }
+
+
+    currentLanguage =
+        language;
+
+
+    localStorage.setItem(
+        "portfolio-language",
+        currentLanguage
+    );
+
+
+    // =========================
+    // STATIC TRANSLATIONS
+    // =========================
+
+    applyTranslations();
+
+
+    // =========================
+    // CLOSE OPEN MODAL
+    // =========================
+
+    if (
+        projectModal &&
+        !projectModal.hidden
+    ) {
+
+        closeProject();
+    }
+
+
+    // =========================
+    // RELOAD PROJECTS
+    // =========================
+
+    await loadProjects();
+
+
+    // =========================
+    // RELOAD SKILLS MAP DATA
+    // =========================
+
+    if (
+        typeof skillsMap !== "undefined" &&
+        skillsMap.svg
+    ) {
+
+        await loadSkillsProjects();
+
+        renderSkillsMap();
+
+        clearActiveMap();
     }
 }
 
 
-// =========================
-// PROJECT FILTERING
-// =========================
+function setupLanguageSwitch() {
 
-function projectMatchesFilter(project, filter) {
+    document
+        .querySelectorAll(
+            "[data-language]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    setLanguage(
+                        button.dataset.language
+                    );
+                }
+            );
+        });
+}
+
+
+// =========================================================
+// ELEMENTS
+// =========================================================
+
+const projectsGrid =
+    document.getElementById(
+        "projects-grid"
+    );
+
+const projectsLoading =
+    document.getElementById(
+        "projects-loading"
+    );
+
+const projectsError =
+    document.getElementById(
+        "projects-error"
+    );
+
+const projectFilters =
+    document.getElementById(
+        "project-filters"
+    );
+
+
+const projectModal =
+    document.getElementById(
+        "project-modal"
+    );
+
+const modalOverlay =
+    document.getElementById(
+        "modal-overlay"
+    );
+
+const modalClose =
+    document.getElementById(
+        "modal-close"
+    );
+
+const modalBody =
+    document.getElementById(
+        "modal-body"
+    );
+
+
+// =========================================================
+// PROJECT FILTERS
+// =========================================================
+
+let allProjects = [];
+
+let activeProjectFilter =
+    "all";
+
+
+const validProjectFilters =
+    new Set([
+        "all",
+        "game",
+        "data",
+        "web",
+        "mobile"
+    ]);
+
+
+function projectMatchesFilter(
+    project,
+    filter
+) {
 
     if (filter === "all") {
         return true;
     }
 
-    const type = String(project.type || "")
-        .trim()
-        .toLowerCase();
 
-    const technologies = Array.isArray(project.technologies)
-        ? project.technologies
-            .join(" ")
-            .toLowerCase()
-        : "";
+    const type =
+        String(
+            project.type || ""
+        )
+            .trim()
+            .toLowerCase();
 
-    const searchable = `${type} ${technologies}`;
+
+    const technologies =
+        Array.isArray(
+            project.technologies
+        )
+            ? project.technologies
+                .join(" ")
+                .toLowerCase()
+            : "";
+
+
+    const searchable =
+        `${type} ${technologies}`;
+
 
     if (filter === "game") {
+
         return (
-            type.includes("game development") ||
-            searchable.includes("unity") ||
-            searchable.includes("godot")
+            type.includes(
+                "game development"
+            ) ||
+            searchable.includes(
+                "unity"
+            ) ||
+            searchable.includes(
+                "godot"
+            )
         );
     }
+
 
     if (filter === "data") {
+
         return (
-            type.includes("data science") ||
-            type.includes("machine learning") ||
-            type.includes("reinforcement learning") ||
-            searchable.includes("data analysis") ||
-            searchable.includes("pandas") ||
-            searchable.includes("scikit-learn") ||
-            searchable.includes("computer vision") ||
-            searchable.includes("yolo")
+            type.includes(
+                "data science"
+            ) ||
+            type.includes(
+                "machine learning"
+            ) ||
+            type.includes(
+                "reinforcement learning"
+            ) ||
+            searchable.includes(
+                "data analysis"
+            ) ||
+            searchable.includes(
+                "pandas"
+            ) ||
+            searchable.includes(
+                "scikit-learn"
+            ) ||
+            searchable.includes(
+                "computer vision"
+            ) ||
+            searchable.includes(
+                "yolo"
+            )
         );
     }
+
 
     if (filter === "web") {
+
         return (
-            type.includes("web development") ||
-            searchable.includes("node.js") ||
-            searchable.includes("express") ||
-            searchable.includes("ejs") ||
-            searchable.includes("rest api")
+            type.includes(
+                "web development"
+            ) ||
+            searchable.includes(
+                "node.js"
+            ) ||
+            searchable.includes(
+                "express"
+            ) ||
+            searchable.includes(
+                "ejs"
+            ) ||
+            searchable.includes(
+                "rest api"
+            )
         );
     }
 
+
     if (filter === "mobile") {
+
         return (
-            type.includes("android") ||
-            type.includes("mobile") ||
-            searchable.includes("android studio")
+            type.includes(
+                "android"
+            ) ||
+            type.includes(
+                "mobile"
+            ) ||
+            searchable.includes(
+                "android studio"
+            )
         );
     }
+
 
     return false;
 }
 
 
-function renderProjectsForFilter(filter) {
+function renderProjectsForFilter(
+    filter
+) {
 
-    const filteredProjects = allProjects.filter(
-        project => projectMatchesFilter(project, filter)
-    );
-
-    const preferredFeaturedSlug =
-        featuredProjectByFilter[filter];
-
-    const featuredProject =
-        filteredProjects.find(
+    const filteredProjects =
+        allProjects.filter(
             project =>
-                project.slug === preferredFeaturedSlug
-        ) || filteredProjects[0];
+                projectMatchesFilter(
+                    project,
+                    filter
+                )
+        );
 
-    const orderedProjects = featuredProject
-        ? [
-            featuredProject,
-            ...filteredProjects.filter(
-                project =>
-                    project.slug !== featuredProject.slug
-            )
-        ]
-        : [];
+
+    /*
+        Featured występuje wyłącznie
+        w widoku ALL.
+    */
+
+    const featuredSlug =
+        filter === "all"
+            ? "survivors3d"
+            : null;
+
 
     renderProjects(
-        orderedProjects,
-        featuredProject?.slug || null
+        filteredProjects,
+        featuredSlug
     );
 }
 
 
-function setProjectFilter(filter) {
+function setProjectFilter(
+    filter
+) {
 
-    if (!Object.prototype.hasOwnProperty.call(
-        featuredProjectByFilter,
-        filter
-    )) {
+    if (
+        !validProjectFilters.has(
+            filter
+        )
+    ) {
         return;
     }
 
-    activeProjectFilter = filter;
+
+    activeProjectFilter =
+        filter;
+
 
     if (projectFilters) {
+
         projectFilters
-            .querySelectorAll(".project-filter")
+            .querySelectorAll(
+                ".project-filter"
+            )
             .forEach(button => {
 
                 const isActive =
-                    button.dataset.filter === filter;
+                    button.dataset.filter ===
+                    filter;
+
 
                 button.classList.toggle(
                     "active",
                     isActive
                 );
+
 
                 button.setAttribute(
                     "aria-pressed",
@@ -263,7 +643,10 @@ function setProjectFilter(filter) {
             });
     }
 
-    renderProjectsForFilter(filter);
+
+    renderProjectsForFilter(
+        filter
+    );
 }
 
 
@@ -273,17 +656,21 @@ function setupProjectFilters() {
         return;
     }
 
+
     projectFilters.addEventListener(
         "click",
         event => {
 
-            const button = event.target.closest(
-                ".project-filter"
-            );
+            const button =
+                event.target.closest(
+                    ".project-filter"
+                );
+
 
             if (!button) {
                 return;
             }
+
 
             setProjectFilter(
                 button.dataset.filter
@@ -293,158 +680,437 @@ function setupProjectFilters() {
 }
 
 
-// =========================
+// =========================================================
+// LOAD PROJECTS
+// =========================================================
+
+async function loadProjects() {
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/projects?lang=${currentLanguage}`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                t("projects.error")
+            );
+        }
+
+
+        allProjects =
+            await response.json();
+
+
+        projectsLoading.hidden =
+            true;
+
+        projectsError.hidden =
+            true;
+
+
+        if (projectFilters) {
+
+            projectFilters.hidden =
+                false;
+        }
+
+
+        renderProjectsForFilter(
+            activeProjectFilter
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Błąd podczas pobierania projektów:",
+            error
+        );
+
+
+        projectsLoading.hidden =
+            true;
+
+        projectsError.hidden =
+            false;
+
+        projectsError.textContent =
+            t("projects.error");
+    }
+}
+
+
+// =========================================================
 // RENDER PROJECTS
-// =========================
+// =========================================================
 
-function renderProjects(projects, featuredSlug = null) {
+function renderProjects(
+    projects,
+    featuredSlug = null
+) {
 
-    projectsGrid.innerHTML = "";
+    projectsGrid.innerHTML =
+        "";
 
-    if (projects.length === 0) {
+
+    if (
+        projects.length === 0
+    ) {
 
         projectsGrid.innerHTML = `
-            <div class="projects-state projects-state-grid">
-                Brak projektów w tej kategorii.
+
+            <div
+                class="projects-state projects-state-grid"
+            >
+                ${t("projects.empty")}
             </div>
+
         `;
 
         return;
     }
 
-    projects.forEach((project, index) => {
 
-        const article =
-            document.createElement("article");
+    projects.forEach(
+        (
+            project,
+            index
+        ) => {
 
-        article.className = "project-card";
+            const article =
+                document.createElement(
+                    "article"
+                );
 
-        if (project.slug === featuredSlug) {
-            article.classList.add("featured");
-        }
 
-        article.innerHTML = `
+            article.className =
+                "project-card";
 
-            ${renderMedia(project)}
 
-            <div class="project-top">
+            if (
+                featuredSlug &&
+                project.slug ===
+                featuredSlug
+            ) {
 
-                <span class="project-number">
-                    ${String(index + 1).padStart(2, "0")}
-                </span>
+                article.classList.add(
+                    "featured"
+                );
+            }
 
-                <span class="project-type">
-                    ${escapeHtml(
-                        project.type || ""
-                    )}
-                </span>
 
-            </div>
+            article.innerHTML = `
 
-            <div class="project-content">
+                ${renderMedia(project)}
 
-                <h3>
-                    ${escapeHtml(
-                        project.title || ""
-                    )}
-                </h3>
+                <div class="project-top">
 
-                <p>
-                    ${escapeHtml(
-                        project.description || ""
-                    )}
-                </p>
+                    <span class="project-number">
 
-                <div class="tags project-card-tags">
-                    ${renderTechnologies(
-                        project.technologies
-                    )}
+                        ${String(
+                index + 1
+            ).padStart(
+                2,
+                "0"
+            )}
+
+                    </span>
+
+                    <span class="project-type">
+
+                        ${escapeHtml(
+                project.type || ""
+            )}
+
+                    </span>
+
                 </div>
 
-                <button
-                    class="project-more"
-                    type="button"
-                    data-slug="${escapeHtml(
-                        project.slug || ""
-                    )}"
-                >
-                    Zobacz projekt →
-                </button>
 
-            </div>
-        `;
+                <div class="project-content">
 
-        projectsGrid.appendChild(article);
-    });
+                    <h3>
+
+                        ${escapeHtml(
+                project.title || ""
+            )}
+
+                    </h3>
 
 
-    // =========================
-    // PROJECT BUTTONS
-    // =========================
+                    <p>
 
-    const buttons =
-        projectsGrid.querySelectorAll(
-            ".project-more"
-        );
+                        ${escapeHtml(
+                project.description || ""
+            )}
 
-    buttons.forEach(button => {
+                    </p>
 
-        button.addEventListener(
-            "click",
-            () => {
 
-                const slug =
-                    button.dataset.slug;
+                    <div
+                        class="tags project-card-tags"
+                    >
 
-                openProject(slug);
-            }
-        );
-    });
+                        ${renderTechnologies(
+                project.technologies
+            )}
 
-    requestAnimationFrame(() => {
-        fitProjectCardTechnologies();
-    });
+                    </div>
+
+
+                    <button
+                        class="project-more"
+                        type="button"
+                        data-slug="${escapeHtml(
+                project.slug || ""
+            )}"
+                    >
+
+                        ${t(
+                "projects.more"
+            )}
+
+                    </button>
+
+                </div>
+            `;
+
+
+            projectsGrid.appendChild(
+                article
+            );
+        }
+    );
+
+
+    setupProjectButtons();
+
+
+    requestAnimationFrame(
+        () => {
+
+            fitProjectCardTechnologies();
+        }
+    );
 }
 
 
-// =========================
-// RENDER PROJECT TECHNOLOGY TAGS
-// =========================
+function setupProjectButtons() {
 
-function renderTechnologies(technologies) {
+    projectsGrid
+        .querySelectorAll(
+            ".project-more"
+        )
+        .forEach(button => {
 
-    if (!Array.isArray(technologies)) {
+            button.addEventListener(
+                "click",
+                () => {
+
+                    openProject(
+                        button.dataset.slug
+                    );
+                }
+            );
+        });
+}
+
+
+// =========================================================
+// PROJECT TECHNOLOGY TAGS
+// =========================================================
+
+function renderTechnologies(
+    technologies
+) {
+
+    if (
+        !Array.isArray(
+            technologies
+        )
+    ) {
+
         return "";
     }
 
+
     return technologies
-        .map(technology => `
-            <span class="tag">
-                ${escapeHtml(technology)}
-            </span>
-        `)
+        .map(
+            technology => `
+
+                <span class="tag">
+
+                    ${escapeHtml(
+                technology
+            )}
+
+                </span>
+
+            `
+        )
         .join("");
 }
 
 
-// =========================
-// RENDER MEDIA
-// =========================
+function fitProjectCardTechnologies() {
 
-function renderMedia(project) {
+    const containers =
+        document.querySelectorAll(
+            ".project-card-tags"
+        );
+
+
+    containers.forEach(
+        container => {
+
+            container
+                .querySelectorAll(
+                    ".tag-more"
+                )
+                .forEach(
+                    element => {
+
+                        element.remove();
+                    }
+                );
+
+
+            const tags = [
+                ...container
+                    .querySelectorAll(
+                        ".tag:not(.tag-more)"
+                    )
+            ];
+
+
+            tags.forEach(
+                tag => {
+
+                    tag.style.display =
+                        "";
+                }
+            );
+
+
+            if (
+                container.scrollWidth <=
+                container.clientWidth
+            ) {
+
+                return;
+            }
+
+
+            const moreTag =
+                document.createElement(
+                    "span"
+                );
+
+
+            moreTag.className =
+                "tag tag-more";
+
+
+            container.appendChild(
+                moreTag
+            );
+
+
+            let hiddenCount = 0;
+
+
+            for (
+                let index =
+                    tags.length - 1;
+                index >= 0;
+                index--
+            ) {
+
+                tags[
+                    index
+                ].style.display =
+                    "none";
+
+
+                hiddenCount++;
+
+
+                moreTag.textContent =
+                    `+${hiddenCount}`;
+
+
+                if (
+                    container.scrollWidth <=
+                    container.clientWidth
+                ) {
+
+                    break;
+                }
+            }
+        }
+    );
+}
+
+
+let technologyResizeFrame;
+
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        cancelAnimationFrame(
+            technologyResizeFrame
+        );
+
+
+        technologyResizeFrame =
+            requestAnimationFrame(
+                () => {
+
+                    fitProjectCardTechnologies();
+                }
+            );
+    }
+);
+
+
+// =========================================================
+// PROJECT MEDIA
+// =========================================================
+
+function renderMedia(
+    project
+) {
 
     if (!project.media_url) {
         return "";
     }
 
+
     const mediaUrl =
-        project.media_url.toLowerCase();
+        project.media_url
+            .toLowerCase();
+
 
     const isVideo =
-        mediaUrl.endsWith(".mp4") ||
-        mediaUrl.endsWith(".webm") ||
-        mediaUrl.endsWith(".ogg") ||
-        mediaUrl.endsWith(".mov");
+        mediaUrl.endsWith(
+            ".mp4"
+        ) ||
+        mediaUrl.endsWith(
+            ".webm"
+        ) ||
+        mediaUrl.endsWith(
+            ".ogg"
+        ) ||
+        mediaUrl.endsWith(
+            ".mov"
+        );
+
 
     if (isVideo) {
 
@@ -462,13 +1128,13 @@ function renderMedia(project) {
 
                     <source
                         src="${escapeHtml(
-                            project.media_url
-                        )}"
+            project.media_url
+        )}"
                     >
 
-                    Twoja przeglądarka
-                    nie obsługuje
-                    odtwarzania wideo.
+                    ${t(
+            "media.unsupported"
+        )}
 
                 </video>
 
@@ -477,17 +1143,18 @@ function renderMedia(project) {
         `;
     }
 
+
     return `
 
         <div class="project-image">
 
             <img
                 src="${escapeHtml(
-                    project.media_url
-                )}"
+        project.media_url
+    )}"
                 alt="${escapeHtml(
-                    project.title || ""
-                )}"
+        project.title || ""
+    )}"
                 loading="lazy"
             >
 
@@ -497,35 +1164,39 @@ function renderMedia(project) {
 }
 
 
-// =========================
+// =========================================================
 // OPEN PROJECT
-// =========================
+// =========================================================
 
-async function openProject(slug) {
+async function openProject(
+    slug
+) {
 
-    projectModal.hidden = false;
+    projectModal.hidden =
+        false;
 
-    document.body.classList.add(
-        "modal-open"
-    );
 
-    // Zapamiętujemy szerokość scrollbar'a,
-    // żeby strona nie "skakała"
+    document.body
+        .classList.add(
+            "modal-open"
+        );
 
-    document.body.style.paddingRight =
+
+    document.body.style
+        .paddingRight =
         `${window.innerWidth -
-            document.documentElement.clientWidth}px`;
+        document.documentElement
+            .clientWidth
+        }px`;
 
-
-    // =========================
-    // LOADING STATE
-    // =========================
 
     modalBody.innerHTML = `
 
         <div class="projects-state">
 
-            Ładowanie projektu...
+            ${t(
+        "projects.loadingOne"
+    )}
 
         </div>
 
@@ -534,23 +1205,31 @@ async function openProject(slug) {
 
     try {
 
-        const response = await fetch(
-            `/api/projects/${encodeURIComponent(
-                slug
-            )}`
-        );
+        const response =
+    await fetch(
+        `/api/projects/${
+            encodeURIComponent(slug)
+        }?lang=${currentLanguage}`
+    );
+
 
         if (!response.ok) {
 
             throw new Error(
-                "Nie udało się pobrać projektu."
+                t(
+                    "projects.errorOne"
+                )
             );
         }
+
 
         const project =
             await response.json();
 
-        renderProject(project);
+
+        renderProject(
+            project
+        );
 
     } catch (error) {
 
@@ -559,12 +1238,14 @@ async function openProject(slug) {
             error
         );
 
+
         modalBody.innerHTML = `
 
             <div class="projects-state">
 
-                Nie udało się
-                pobrać projektu.
+                ${t(
+            "projects.errorOne"
+        )}
 
             </div>
 
@@ -573,26 +1254,28 @@ async function openProject(slug) {
 }
 
 
-// =========================
+// =========================================================
 // RENDER PROJECT DETAILS
-// =========================
+// =========================================================
 
-function renderProject(project) {
+function renderProject(
+    project
+) {
 
-    // =========================
-    // GITHUB
-    // =========================
+    let githubButton =
+        "";
 
-    let githubButton = "";
 
-    if (project.github_url) {
+    if (
+        project.github_url
+    ) {
 
         githubButton = `
 
             <a
                 href="${escapeHtml(
-                    project.github_url
-                )}"
+            project.github_url
+        )}"
                 class="button button-primary"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -606,20 +1289,20 @@ function renderProject(project) {
     }
 
 
-    // =========================
-    // DEMO
-    // =========================
+    let demoButton =
+        "";
 
-    let demoButton = "";
 
-    if (project.demo_url) {
+    if (
+        project.demo_url
+    ) {
 
         demoButton = `
 
             <a
                 href="${escapeHtml(
-                    project.demo_url
-                )}"
+            project.demo_url
+        )}"
                 class="button button-secondary"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -633,21 +1316,21 @@ function renderProject(project) {
     }
 
 
-    // =========================
-    // MODAL HTML
-    // =========================
-
     modalBody.innerHTML = `
 
-        ${renderModalMedia(project)}
+        ${renderModalMedia(
+        project
+    )}
+
 
         <span class="project-type">
 
             ${escapeHtml(
-                project.type || ""
-            )}
+        project.type || ""
+    )}
 
         </span>
+
 
         <h2
             class="modal-title"
@@ -655,57 +1338,70 @@ function renderProject(project) {
         >
 
             ${escapeHtml(
-                project.title || ""
-            )}
+        project.title || ""
+    )}
 
         </h2>
+
 
         <p class="modal-description">
 
             ${escapeHtml(
-                project.description || ""
-            )}
+        project.description || ""
+    )}
 
         </p>
 
-        <div class="modal-divider"></div>
+
+        <div
+            class="modal-divider"
+        ></div>
+
 
         <div class="modal-layout">
-
-            <!-- DESCRIPTION -->
 
             <div>
 
                 <h3>
-                    O projekcie
+
+                    ${t(
+        "projects.about"
+    )}
+
                 </h3>
+
 
                 <p class="modal-text">
 
                     ${escapeHtml(
-                        project.full_description || ""
-                    )}
+        project.full_description ||
+        ""
+    )}
 
                 </p>
 
             </div>
 
 
-            <!-- TECHNOLOGIES -->
-
             <aside>
 
                 <h3>
-                    Technologie
+
+                    ${t(
+        "projects.technologies"
+    )}
+
                 </h3>
+
 
                 <div class="tags">
 
                     ${renderTechnologies(
-                        project.technologies
-                    )}
+        project.technologies
+    )}
 
                 </div>
+
 
                 <div class="modal-actions">
 
@@ -723,30 +1419,49 @@ function renderProject(project) {
 }
 
 
-// =========================
+// =========================================================
 // RENDER MODAL MEDIA
-// =========================
+// =========================================================
 
-function renderModalMedia(project) {
+function renderModalMedia(
+    project
+) {
 
-    if (!project.media_url) {
+    if (
+        !project.media_url
+    ) {
+
         return "";
     }
 
+
     const mediaUrl =
-        project.media_url.toLowerCase();
+        project.media_url
+            .toLowerCase();
+
 
     const isVideo =
-        mediaUrl.endsWith(".mp4") ||
-        mediaUrl.endsWith(".webm") ||
-        mediaUrl.endsWith(".ogg") ||
-        mediaUrl.endsWith(".mov");
+        mediaUrl.endsWith(
+            ".mp4"
+        ) ||
+        mediaUrl.endsWith(
+            ".webm"
+        ) ||
+        mediaUrl.endsWith(
+            ".ogg"
+        ) ||
+        mediaUrl.endsWith(
+            ".mov"
+        );
+
 
     if (isVideo) {
 
         return `
 
-            <div class="modal-project-image">
+            <div
+                class="modal-project-image"
+            >
 
                 <video
                     autoplay
@@ -757,13 +1472,13 @@ function renderModalMedia(project) {
 
                     <source
                         src="${escapeHtml(
-                            project.media_url
-                        )}"
+            project.media_url
+        )}"
                     >
 
-                    Twoja przeglądarka
-                    nie obsługuje
-                    odtwarzania wideo.
+                    ${t(
+            "media.unsupported"
+        )}
 
                 </video>
 
@@ -772,17 +1487,20 @@ function renderModalMedia(project) {
         `;
     }
 
+
     return `
 
-        <div class="modal-project-image">
+        <div
+            class="modal-project-image"
+        >
 
             <img
                 src="${escapeHtml(
-                    project.media_url
-                )}"
+        project.media_url
+    )}"
                 alt="${escapeHtml(
-                    project.title || ""
-                )}"
+        project.title || ""
+    )}"
             >
 
         </div>
@@ -791,44 +1509,61 @@ function renderModalMedia(project) {
 }
 
 
-// =========================
-// CLOSE MODAL
-// =========================
+// =========================================================
+// CLOSE PROJECT
+// =========================================================
 
 function closeProject() {
 
-    projectModal.hidden = true;
+    projectModal.hidden =
+        true;
 
-    document.body.classList.remove(
-        "modal-open"
-    );
 
-    document.body.style.paddingRight = "";
+    document.body
+        .classList.remove(
+            "modal-open"
+        );
 
-    // Zatrzymujemy ewentualny film
-    // po zamknięciu modala.
+
+    document.body.style
+        .paddingRight =
+        "";
+
 
     modalBody
-        .querySelectorAll("video")
-        .forEach(video => {
-            video.pause();
-        });
+        .querySelectorAll(
+            "video"
+        )
+        .forEach(
+            video => {
+
+                video.pause();
+            }
+        );
 }
 
 
-// =========================
-// EVENT LISTENERS
-// =========================
+// =========================================================
+// MODAL EVENTS
+// =========================================================
 
-modalClose.addEventListener(
-    "click",
-    closeProject
-);
+if (modalClose) {
 
-modalOverlay.addEventListener(
-    "click",
-    closeProject
-);
+    modalClose.addEventListener(
+        "click",
+        closeProject
+    );
+}
+
+
+if (modalOverlay) {
+
+    modalOverlay.addEventListener(
+        "click",
+        closeProject
+    );
+}
+
 
 document.addEventListener(
     "keydown",
@@ -836,6 +1571,7 @@ document.addEventListener(
 
         if (
             event.key === "Escape" &&
+            projectModal &&
             !projectModal.hidden
         ) {
 
@@ -865,79 +1601,128 @@ const skillsMap = {
 
     projectsData: [],
 
+
     center: {
+
         x: 500,
+
         y: 380
     },
+
 
     sectors: [
 
         {
-            id: "game",
+            id:
+                "game",
 
-            name: "GAME DEVELOPMENT",
+            name:
+                "GAME DEVELOPMENT",
 
             technologies: [
+
                 "Unity",
+
                 "C#",
+
                 "Godot",
+
                 "GDScript",
+
                 "OOP",
+
                 "ScriptableObjects",
+
                 "Pathfinding"
             ]
         },
 
-        {
-            id: "data",
 
-            name: "DATA & AI",
+        {
+            id:
+                "data",
+
+            name:
+                "DATA & AI",
 
             technologies: [
+
                 "Python",
+
                 "Pandas",
+
                 "Data Analysis",
+
                 "Machine Learning",
+
                 "scikit-learn",
+
                 "Random Forest",
+
                 "Gymnasium",
+
                 "Reinforcement Learning",
+
                 "DQN",
+
                 "PPO",
+
                 "YOLO",
+
                 "Computer Vision"
             ]
         },
 
-        {
-            id: "web",
 
-            name: "WEB DEVELOPMENT",
+        {
+            id:
+                "web",
+
+            name:
+                "WEB DEVELOPMENT",
 
             technologies: [
+
                 "JavaScript",
+
                 "HTML",
+
                 "CSS",
+
                 "Node.js",
+
                 "Express",
+
                 "EJS",
+
                 "SQL",
+
                 "SQLite",
+
                 "REST API"
             ]
         },
 
-        {
-            id: "mobile",
 
-            name: "MOBILE",
+        {
+            id:
+                "mobile",
+
+            name:
+                "MOBILE",
 
             technologies: [
+
                 "Java",
+
                 "Android",
+
                 "Android Studio",
+
                 "TensorFlow Lite",
+
                 "Audio Playback",
+
                 "Playlist Management"
             ]
         }
@@ -957,21 +1742,28 @@ function polarToCartesian(
 ) {
 
     const radians =
-        (angle - 90) *
+        (
+            angle - 90
+        ) *
         Math.PI /
         180;
+
 
     return {
 
         x:
             cx +
             radius *
-            Math.cos(radians),
+            Math.cos(
+                radians
+            ),
 
         y:
             cy +
             radius *
-            Math.sin(radians)
+            Math.sin(
+                radians
+            )
     };
 }
 
@@ -987,9 +1779,14 @@ function createSvgElement(
             tag
         );
 
-    Object.entries(attributes)
+
+    Object.entries(
+        attributes
+    )
         .forEach(
-            ([key, value]) => {
+            (
+                [key, value]
+            ) => {
 
                 element.setAttribute(
                     key,
@@ -997,6 +1794,7 @@ function createSvgElement(
                 );
             }
         );
+
 
     return element;
 }
@@ -1006,9 +1804,13 @@ function createSvgElement(
 // DETERMINISTIC RANDOM
 // =========================================================
 
-function seededRandom(seed) {
+function seededRandom(
+    seed
+) {
 
-    let value = seed;
+    let value =
+        seed;
+
 
     return function () {
 
@@ -1020,7 +1822,11 @@ function seededRandom(seed) {
             ) %
             233280;
 
-        return value / 233280;
+
+        return (
+            value /
+            233280
+        );
     };
 }
 
@@ -1032,63 +1838,83 @@ function seededRandom(seed) {
 function calculateSectorGeometry() {
 
     const totalTechnologies =
-        skillsMap.sectors.reduce(
-            (sum, sector) =>
-                sum +
-                sector.technologies.length,
-            0
-        );
+        skillsMap.sectors
+            .reduce(
+                (
+                    sum,
+                    sector
+                ) =>
 
-    /*
-        Mała przerwa pomiędzy sektorami.
-    */
+                    sum +
+                    sector
+                        .technologies
+                        .length,
 
-    const sectorGap = 6;
+                0
+            );
+
+
+    const sectorGap =
+        6;
+
 
     const totalGap =
         sectorGap *
-        skillsMap.sectors.length;
+        skillsMap
+            .sectors
+            .length;
+
 
     const availableAngle =
         360 -
         totalGap;
 
-    /*
-        Zaczynamy od góry.
-    */
 
-    let currentAngle = -90;
+    let currentAngle =
+        -90;
 
-    skillsMap.sectors.forEach(
-        sector => {
 
-            const percentage =
-                sector.technologies.length /
-                totalTechnologies;
+    skillsMap.sectors
+        .forEach(
+            sector => {
 
-            const angleSize =
-                availableAngle *
-                percentage;
+                const percentage =
+                    sector
+                        .technologies
+                        .length /
+                    totalTechnologies;
 
-            sector.startAngle =
-                currentAngle;
 
-            sector.endAngle =
-                currentAngle +
-                angleSize;
+                const angleSize =
+                    availableAngle *
+                    percentage;
 
-            sector.midAngle =
-                currentAngle +
-                angleSize / 2;
 
-            sector.percentage =
-                percentage * 100;
+                sector.startAngle =
+                    currentAngle;
 
-            currentAngle =
-                sector.endAngle +
-                sectorGap;
-        }
-    );
+
+                sector.endAngle =
+                    currentAngle +
+                    angleSize;
+
+
+                sector.midAngle =
+                    currentAngle +
+                    angleSize /
+                    2;
+
+
+                sector.percentage =
+                    percentage *
+                    100;
+
+
+                currentAngle =
+                    sector.endAngle +
+                    sectorGap;
+            }
+        );
 }
 
 
@@ -1103,40 +1929,50 @@ async function initSkillsMap() {
             "skills-map-svg"
         );
 
+
     if (!skillsMap.svg) {
         return;
     }
+
 
     skillsMap.connections =
         document.getElementById(
             "skills-map-connections"
         );
 
+
     skillsMap.sectorsElement =
         document.getElementById(
             "skills-map-sectors"
         );
+
 
     skillsMap.technologies =
         document.getElementById(
             "skills-map-technologies"
         );
 
+
     skillsMap.projects =
         document.getElementById(
             "skills-map-projects"
         );
+
 
     skillsMap.details =
         document.getElementById(
             "skills-map-details"
         );
 
+
     await loadSkillsProjects();
+
 
     calculateSectorGeometry();
 
+
     renderSkillsMap();
+
 
     setupSkillsMapEvents();
 }
@@ -1152,15 +1988,19 @@ async function loadSkillsProjects() {
 
         const response =
             await fetch(
-                "/api/projects"
+                `/api/projects?lang=${currentLanguage}`
             );
+
 
         if (!response.ok) {
 
             throw new Error(
-                "Nie udało się pobrać projektów."
+                t(
+                    "projects.error"
+                )
             );
         }
+
 
         skillsMap.projectsData =
             await response.json();
@@ -1172,7 +2012,9 @@ async function loadSkillsProjects() {
             error
         );
 
-        skillsMap.projectsData = [];
+
+        skillsMap.projectsData =
+            [];
     }
 }
 
@@ -1190,7 +2032,9 @@ function getProjectsForTechnology(
             .trim()
             .toLowerCase();
 
-    return skillsMap.projectsData
+
+    return skillsMap
+        .projectsData
         .filter(
             project => {
 
@@ -1203,13 +2047,17 @@ function getProjectsForTechnology(
                     return false;
                 }
 
-                return project.technologies.some(
-                    tech =>
-                        tech
-                            .trim()
-                            .toLowerCase() ===
-                        normalized
-                );
+
+                return project
+                    .technologies
+                    .some(
+                        tech =>
+
+                            tech
+                                .trim()
+                                .toLowerCase() ===
+                            normalized
+                    );
             }
         );
 }
@@ -1221,31 +2069,31 @@ function getProjectsForTechnology(
 
 function renderSkillsMap() {
 
-    skillsMap.connections.innerHTML =
+    skillsMap.connections
+        .innerHTML =
         "";
 
-    skillsMap.sectorsElement.innerHTML =
+
+    skillsMap.sectorsElement
+        .innerHTML =
         "";
 
-    skillsMap.technologies.innerHTML =
+
+    skillsMap.technologies
+        .innerHTML =
         "";
 
-    skillsMap.projects.innerHTML =
+
+    skillsMap.projects
+        .innerHTML =
         "";
+
 
     renderSectors();
 
+
     renderSectorConnections();
 
-    /*
-        UWAGA:
-
-        To jest renderowanie technologii
-        na mapie, dlatego używamy
-        renderMapTechnologies(), a nie
-        renderTechnologies(), które służy
-        do tagów projektów.
-    */
 
     renderMapTechnologies();
 }
@@ -1257,48 +2105,59 @@ function renderSkillsMap() {
 
 function renderSectorConnections() {
 
-    skillsMap.sectors.forEach(
-        sector => {
+    skillsMap.sectors
+        .forEach(
+            sector => {
 
-            const point =
-                sector.point ||
-                polarToCartesian(
-                    skillsMap.center.x,
-                    skillsMap.center.y,
-                    165,
-                    sector.midAngle
-                );
+                const point =
+                    sector.point ||
+                    polarToCartesian(
+                        skillsMap
+                            .center.x,
+                        skillsMap
+                            .center.y,
+                        165,
+                        sector
+                            .midAngle
+                    );
 
-            const line =
-                createSvgElement(
-                    "line",
-                    {
 
-                        x1:
-                            skillsMap.center.x,
+                const line =
+                    createSvgElement(
+                        "line",
+                        {
 
-                        y1:
-                            skillsMap.center.y,
+                            x1:
+                                skillsMap
+                                    .center.x,
 
-                        x2:
-                            point.x,
+                            y1:
+                                skillsMap
+                                    .center.y,
 
-                        y2:
-                            point.y,
+                            x2:
+                                point.x,
 
-                        class:
-                            "skills-map-connection " +
-                            "skills-sector-connection",
+                            y2:
+                                point.y,
 
-                        "data-sector":
-                            sector.id
-                    }
-                );
+                            class:
+                                "skills-map-connection " +
+                                "skills-sector-connection",
 
-            skillsMap.connections
-                .appendChild(line);
-        }
-    );
+                            "data-sector":
+                                sector.id
+                        }
+                    );
+
+
+                skillsMap
+                    .connections
+                    .appendChild(
+                        line
+                    );
+            }
+        );
 }
 
 
@@ -1308,141 +2167,147 @@ function renderSectorConnections() {
 
 function renderSectors() {
 
-    skillsMap.sectors.forEach(
-        sector => {
+    skillsMap.sectors
+        .forEach(
+            sector => {
 
-            /*
-                Pozycję sektora wyliczamy tylko raz.
-            */
-
-            const point =
-                polarToCartesian(
-                    skillsMap.center.x,
-                    skillsMap.center.y,
-                    165,
-                    sector.midAngle
-                );
-
-            sector.point = point;
-
-
-            const group =
-                createSvgElement(
-                    "g",
-                    {
-
-                        class:
-                            "skills-map-sector",
-
-                        "data-sector":
-                            sector.id
-                    }
-                );
-
-
-            /*
-                Kółko kategorii
-            */
-
-            const dot =
-                createSvgElement(
-                    "circle",
-                    {
-
-                        cx:
-                            point.x,
-
-                        cy:
-                            point.y,
-
-                        r: 7,
-
-                        class:
-                            "skills-sector-dot"
-                    }
-                );
-
-            group.appendChild(dot);
-
-
-            /*
-                Nazwa kategorii
-            */
-
-            const text =
-                createSvgElement(
-                    "text",
-                    {
-
-                        x:
-                            point.x,
-
-                        y:
-                            point.y - 24,
-
-                        class:
-                            "skills-sector-label",
-
-                        "text-anchor":
-                            "middle"
-                    }
-                );
-
-            text.textContent =
-                sector.name;
-
-            group.appendChild(text);
-
-
-            /*
-                Obszar hover
-            */
-
-            const hitArea =
-                createSvgElement(
-                    "circle",
-                    {
-
-                        cx:
-                            point.x,
-
-                        cy:
-                            point.y,
-
-                        r: 65,
-
-                        class:
-                            "skills-sector-hit"
-                    }
-                );
-
-            group.appendChild(hitArea);
-
-
-            group.addEventListener(
-                "mouseenter",
-                () => {
-
-                    activateSector(
-                        sector.id
+                const point =
+                    polarToCartesian(
+                        skillsMap
+                            .center.x,
+                        skillsMap
+                            .center.y,
+                        165,
+                        sector
+                            .midAngle
                     );
-                }
-            );
 
 
-            group.addEventListener(
-                "mouseleave",
-                () => {
-
-                    clearActiveMap();
-                }
-            );
+                sector.point =
+                    point;
 
 
-            skillsMap.sectorsElement
-                .appendChild(group);
-        }
-    );
+                const group =
+                    createSvgElement(
+                        "g",
+                        {
+
+                            class:
+                                "skills-map-sector",
+
+                            "data-sector":
+                                sector.id
+                        }
+                    );
+
+
+                const dot =
+                    createSvgElement(
+                        "circle",
+                        {
+
+                            cx:
+                                point.x,
+
+                            cy:
+                                point.y,
+
+                            r:
+                                7,
+
+                            class:
+                                "skills-sector-dot"
+                        }
+                    );
+
+
+                group.appendChild(
+                    dot
+                );
+
+
+                const text =
+                    createSvgElement(
+                        "text",
+                        {
+
+                            x:
+                                point.x,
+
+                            y:
+                                point.y -
+                                24,
+
+                            class:
+                                "skills-sector-label",
+
+                            "text-anchor":
+                                "middle"
+                        }
+                    );
+
+
+                text.textContent =
+                    sector.name;
+
+
+                group.appendChild(
+                    text
+                );
+
+
+                const hitArea =
+                    createSvgElement(
+                        "circle",
+                        {
+
+                            cx:
+                                point.x,
+
+                            cy:
+                                point.y,
+
+                            r:
+                                65,
+
+                            class:
+                                "skills-sector-hit"
+                        }
+                    );
+
+
+                group.appendChild(
+                    hitArea
+                );
+
+
+                group.addEventListener(
+                    "mouseenter",
+                    () => {
+
+                        activateSector(
+                            sector.id
+                        );
+                    }
+                );
+
+
+                group.addEventListener(
+                    "mouseleave",
+                    () => {
+
+                        clearActiveMap();
+                    }
+                );
+
+
+                skillsMap
+                    .sectorsElement
+                    .appendChild(
+                        group
+                    );
+            }
+        );
 }
 
 
@@ -1454,66 +2319,62 @@ function generateTechnologyPositions(
     sector
 ) {
 
-    const positions = [];
+    const positions =
+        [];
 
 
-    /*
-        Technologie mogą być rozmieszczane
-        od 205 do 335 px od centrum.
-    */
-
-    const innerRadius = 205;
-    const outerRadius = 335;
+    const innerRadius =
+        205;
 
 
-    /*
-        Minimalny odstęp pomiędzy technologiami.
-    */
-
-    const minDistance = 52;
+    const outerRadius =
+        335;
 
 
-    /*
-        Minimalna odległość od nazwy sektora.
-    */
-
-    const sectorClearance = 95;
+    const minDistance =
+        52;
 
 
-    /*
-        Stabilny generator losowy.
-    */
+    const sectorClearance =
+        95;
+
 
     const sectorSeeds = {
 
-        game: 173,
+        game:
+            173,
 
-        data: 421,
+        data:
+            421,
 
-        web: 739,
+        web:
+            739,
 
-        mobile: 913
+        mobile:
+            913
     };
 
 
     const random =
         seededRandom(
-            sectorSeeds[sector.id] || 123
+
+            sectorSeeds[
+            sector.id
+            ] ||
+            123
         );
 
 
     for (
         let i = 0;
-        i < sector.technologies.length;
+        i <
+        sector.technologies.length;
         i++
     ) {
 
-        let position = null;
+        let position =
+            null;
 
-
-        /*
-            Szukamy odpowiedniej pozycji.
-        */
 
         for (
             let attempt = 0;
@@ -1541,21 +2402,27 @@ function generateTechnologyPositions(
 
             const point =
                 polarToCartesian(
-                    skillsMap.center.x,
-                    skillsMap.center.y,
+                    skillsMap
+                        .center.x,
+                    skillsMap
+                        .center.y,
                     radius,
                     angle
                 );
 
 
-            /*
-                Odległość od punktu sektora.
-            */
-
             const distanceFromSector =
                 Math.sqrt(
-                    (point.x - sector.point.x) ** 2 +
-                    (point.y - sector.point.y) ** 2
+
+                    (
+                        point.x -
+                        sector.point.x
+                    ) ** 2 +
+
+                    (
+                        point.y -
+                        sector.point.y
+                    ) ** 2
                 );
 
 
@@ -1564,32 +2431,37 @@ function generateTechnologyPositions(
                 sectorClearance;
 
 
-            /*
-                Odległość od innych technologii.
-            */
-
             const farEnoughFromTechnologies =
-                positions.every(existing => {
+                positions.every(
+                    existing => {
 
-                    const dx =
-                        point.x -
-                        existing.x;
+                        const dx =
+                            point.x -
+                            existing.x;
 
-                    const dy =
-                        point.y -
-                        existing.y;
 
-                    const distance =
-                        Math.sqrt(
-                            dx * dx +
-                            dy * dy
+                        const dy =
+                            point.y -
+                            existing.y;
+
+
+                        const distance =
+                            Math.sqrt(
+
+                                dx *
+                                dx +
+
+                                dy *
+                                dy
+                            );
+
+
+                        return (
+                            distance >=
+                            minDistance
                         );
-
-                    return (
-                        distance >=
-                        minDistance
-                    );
-                });
+                    }
+                );
 
 
             const valid =
@@ -1607,10 +2479,6 @@ function generateTechnologyPositions(
         }
 
 
-        /*
-            Awaryjna pozycja.
-        */
-
         if (!position) {
 
             const fallbackAngle =
@@ -1623,7 +2491,9 @@ function generateTechnologyPositions(
                     i /
                     Math.max(
                         1,
-                        sector.technologies.length
+                        sector
+                            .technologies
+                            .length
                     )
                 );
 
@@ -1639,8 +2509,10 @@ function generateTechnologyPositions(
 
             position =
                 polarToCartesian(
-                    skillsMap.center.x,
-                    skillsMap.center.y,
+                    skillsMap
+                        .center.x,
+                    skillsMap
+                        .center.y,
                     fallbackRadius,
                     fallbackAngle
                 );
@@ -1663,217 +2535,203 @@ function generateTechnologyPositions(
 
 function renderMapTechnologies() {
 
-    skillsMap.sectors.forEach(
-        sector => {
+    skillsMap.sectors
+        .forEach(
+            sector => {
 
-            const positions =
-                generateTechnologyPositions(
-                    sector
-                );
-
-
-            sector.technologies.forEach(
-                (
-                    technology,
-                    index
-                ) => {
-
-                    const point =
-                        positions[index];
-
-
-                    /*
-                        Linia zaczyna się dokładnie
-                        w środku kółka kategorii.
-                    */
-
-                    const connection =
-                        createSvgElement(
-                            "line",
-                            {
-
-                                x1:
-                                    sector.point.x,
-
-                                y1:
-                                    sector.point.y,
-
-                                x2:
-                                    point.x,
-
-                                y2:
-                                    point.y,
-
-                                class:
-                                    "skills-map-connection " +
-                                    "skills-technology-connection",
-
-                                "data-sector":
-                                    sector.id,
-
-                                "data-technology":
-                                    technology
-                            }
-                        );
-
-
-                    skillsMap.connections
-                        .appendChild(
-                            connection
-                        );
-
-
-                    /*
-                        Grupa technologii
-                    */
-
-                    const group =
-                        createSvgElement(
-                            "g",
-                            {
-
-                                class:
-                                    "skills-map-technology",
-
-                                "data-sector":
-                                    sector.id,
-
-                                "data-technology":
-                                    technology
-                            }
-                        );
-
-
-                    /*
-                        Punkt technologii
-                    */
-
-                    const dot =
-                        createSvgElement(
-                            "circle",
-                            {
-
-                                cx:
-                                    point.x,
-
-                                cy:
-                                    point.y,
-
-                                r: 5,
-
-                                class:
-                                    "skills-technology-dot"
-                            }
-                        );
-
-
-                    group.appendChild(
-                        dot
+                const positions =
+                    generateTechnologyPositions(
+                        sector
                     );
 
 
-                    /*
-                        Nazwa technologii
-                    */
+                sector.technologies
+                    .forEach(
+                        (
+                            technology,
+                            index
+                        ) => {
 
-                    const labelOffset =
-                        index % 2 === 0
-                            ? 13
-                            : 17;
-
-
-                    const text =
-                        createSvgElement(
-                            "text",
-                            {
-
-                                x:
-                                    point.x,
-
-                                y:
-                                    point.y -
-                                    labelOffset,
-
-                                class:
-                                    "skills-technology-label",
-
-                                "text-anchor":
-                                    "middle"
-                            }
-                        );
+                            const point =
+                                positions[
+                                index
+                                ];
 
 
-                    text.textContent =
-                        technology;
+                            const connection =
+                                createSvgElement(
+                                    "line",
+                                    {
+
+                                        x1:
+                                            sector
+                                                .point.x,
+
+                                        y1:
+                                            sector
+                                                .point.y,
+
+                                        x2:
+                                            point.x,
+
+                                        y2:
+                                            point.y,
+
+                                        class:
+                                            "skills-map-connection " +
+                                            "skills-technology-connection",
+
+                                        "data-sector":
+                                            sector.id,
+
+                                        "data-technology":
+                                            technology
+                                    }
+                                );
 
 
-                    group.appendChild(
-                        text
-                    );
+                            skillsMap
+                                .connections
+                                .appendChild(
+                                    connection
+                                );
 
 
-                    /*
-                        Obszar hover
-                    */
+                            const group =
+                                createSvgElement(
+                                    "g",
+                                    {
 
-                    const hitArea =
-                        createSvgElement(
-                            "circle",
-                            {
+                                        class:
+                                            "skills-map-technology",
 
-                                cx:
-                                    point.x,
+                                        "data-sector":
+                                            sector.id,
 
-                                cy:
-                                    point.y,
-
-                                r: 25,
-
-                                class:
-                                    "skills-technology-hit"
-                            }
-                        );
+                                        "data-technology":
+                                            technology
+                                    }
+                                );
 
 
-                    group.appendChild(
-                        hitArea
-                    );
+                            const dot =
+                                createSvgElement(
+                                    "circle",
+                                    {
+
+                                        cx:
+                                            point.x,
+
+                                        cy:
+                                            point.y,
+
+                                        r:
+                                            5,
+
+                                        class:
+                                            "skills-technology-dot"
+                                    }
+                                );
 
 
-                    /*
-                        HOVER TECHNOLOGII
-                    */
-
-                    group.addEventListener(
-                        "mouseenter",
-                        () => {
-
-                            activateTechnology(
-                                technology,
-                                sector.id,
-                                point
+                            group.appendChild(
+                                dot
                             );
+
+
+                            const labelOffset =
+                                index %
+                                    2 === 0
+                                    ? 13
+                                    : 17;
+
+
+                            const text =
+                                createSvgElement(
+                                    "text",
+                                    {
+
+                                        x:
+                                            point.x,
+
+                                        y:
+                                            point.y -
+                                            labelOffset,
+
+                                        class:
+                                            "skills-technology-label",
+
+                                        "text-anchor":
+                                            "middle"
+                                    }
+                                );
+
+
+                            text.textContent =
+                                technology;
+
+
+                            group.appendChild(
+                                text
+                            );
+
+
+                            const hitArea =
+                                createSvgElement(
+                                    "circle",
+                                    {
+
+                                        cx:
+                                            point.x,
+
+                                        cy:
+                                            point.y,
+
+                                        r:
+                                            25,
+
+                                        class:
+                                            "skills-technology-hit"
+                                    }
+                                );
+
+
+                            group.appendChild(
+                                hitArea
+                            );
+
+
+                            group.addEventListener(
+                                "mouseenter",
+                                () => {
+
+                                    activateTechnology(
+                                        technology,
+                                        sector.id,
+                                        point
+                                    );
+                                }
+                            );
+
+
+                            group.addEventListener(
+                                "mouseleave",
+                                () => {
+
+                                    clearActiveMap();
+                                }
+                            );
+
+
+                            skillsMap
+                                .technologies
+                                .appendChild(
+                                    group
+                                );
                         }
                     );
-
-
-                    group.addEventListener(
-                        "mouseleave",
-                        () => {
-
-                            clearActiveMap();
-                        }
-                    );
-
-
-                    skillsMap.technologies
-                        .appendChild(
-                            group
-                        );
-                }
-            );
-        }
-    );
+            }
+        );
 }
 
 
@@ -1885,17 +2743,16 @@ function activateSector(
     sectorId
 ) {
 
-    clearActiveMap(false);
-
-
-    skillsMap.svg.classList.add(
-        "sector-active"
+    clearActiveMap(
+        false
     );
 
 
-    // =====================================================
-    // SECTORS
-    // =====================================================
+    skillsMap.svg
+        .classList.add(
+            "sector-active"
+        );
+
 
     document
         .querySelectorAll(
@@ -1905,7 +2762,8 @@ function activateSector(
             sector => {
 
                 const active =
-                    sector.dataset.sector ===
+                    sector.dataset
+                        .sector ===
                     sectorId;
 
 
@@ -1923,10 +2781,6 @@ function activateSector(
         );
 
 
-    // =====================================================
-    // TECHNOLOGIES
-    // =====================================================
-
     document
         .querySelectorAll(
             ".skills-map-technology"
@@ -1935,27 +2789,28 @@ function activateSector(
             technology => {
 
                 const sameSector =
-                    technology.dataset.sector ===
+                    technology.dataset
+                        .sector ===
                     sectorId;
 
 
-                technology.classList.toggle(
-                    "sector-active",
-                    sameSector
-                );
+                technology
+                    .classList
+                    .toggle(
+                        "sector-active",
+                        sameSector
+                    );
 
 
-                technology.classList.toggle(
-                    "dimmed",
-                    !sameSector
-                );
+                technology
+                    .classList
+                    .toggle(
+                        "dimmed",
+                        !sameSector
+                    );
             }
         );
 
-
-    // =====================================================
-    // CONNECTIONS
-    // =====================================================
 
     document
         .querySelectorAll(
@@ -1965,49 +2820,56 @@ function activateSector(
             connection => {
 
                 const sameSector =
-                    connection.dataset.sector ===
+                    connection.dataset
+                        .sector ===
                     sectorId;
 
 
-                connection.classList.toggle(
-                    "sector-active",
-                    sameSector
-                );
+                connection
+                    .classList
+                    .toggle(
+                        "sector-active",
+                        sameSector
+                    );
 
 
-                connection.classList.toggle(
-                    "dimmed",
-                    !sameSector
-                );
+                connection
+                    .classList
+                    .toggle(
+                        "dimmed",
+                        !sameSector
+                    );
             }
         );
 
 
-    // =====================================================
-    // PROJECTS
-    // =====================================================
-
-    skillsMap.projects.innerHTML =
+    skillsMap.projects
+        .innerHTML =
         "";
 
 
-    // =====================================================
-    // DETAILS
-    // =====================================================
+    skillsMap.details
+        .innerHTML = `
 
-    skillsMap.details.innerHTML = `
+            <div
+                class="skills-details-placeholder"
+            >
 
-        <div class="skills-details-placeholder">
+                <span
+                    class="skills-details-line"
+                ></span>
 
-            <span class="skills-details-line"></span>
+                <span>
 
-            <span>
-                Najedź na technologię
-            </span>
+                    ${t(
+            "skills.hover"
+        )}
 
-        </div>
+                </span>
 
-    `;
+            </div>
+
+        `;
 }
 
 
@@ -2021,17 +2883,16 @@ function activateTechnology(
     point
 ) {
 
-    clearActiveMap(false);
-
-
-    skillsMap.svg.classList.add(
-        "technology-active"
+    clearActiveMap(
+        false
     );
 
 
-    // =====================================================
-    // SECTORS
-    // =====================================================
+    skillsMap.svg
+        .classList.add(
+            "technology-active"
+        );
+
 
     document
         .querySelectorAll(
@@ -2041,7 +2902,8 @@ function activateTechnology(
             sector => {
 
                 const active =
-                    sector.dataset.sector ===
+                    sector.dataset
+                        .sector ===
                     sectorId;
 
 
@@ -2059,10 +2921,6 @@ function activateTechnology(
         );
 
 
-    // =====================================================
-    // TECHNOLOGIES
-    // =====================================================
-
     document
         .querySelectorAll(
             ".skills-map-technology"
@@ -2071,12 +2929,14 @@ function activateTechnology(
             node => {
 
                 const active =
-                    node.dataset.technology ===
+                    node.dataset
+                        .technology ===
                     technology;
 
 
                 const sameSector =
-                    node.dataset.sector ===
+                    node.dataset
+                        .sector ===
                     sectorId;
 
 
@@ -2101,10 +2961,6 @@ function activateTechnology(
         );
 
 
-    // =====================================================
-    // TECHNOLOGY CONNECTIONS
-    // =====================================================
-
     document
         .querySelectorAll(
             ".skills-map-connection"
@@ -2113,39 +2969,43 @@ function activateTechnology(
             connection => {
 
                 const activeTechnology =
-                    connection.dataset.technology ===
+                    connection.dataset
+                        .technology ===
                     technology;
 
 
                 const sameSector =
-                    connection.dataset.sector ===
+                    connection.dataset
+                        .sector ===
                     sectorId;
 
 
-                connection.classList.toggle(
-                    "active",
-                    activeTechnology
-                );
+                connection
+                    .classList
+                    .toggle(
+                        "active",
+                        activeTechnology
+                    );
 
 
-                connection.classList.toggle(
-                    "sector-active",
-                    sameSector
-                );
+                connection
+                    .classList
+                    .toggle(
+                        "sector-active",
+                        sameSector
+                    );
 
 
-                connection.classList.toggle(
-                    "dimmed",
-                    !activeTechnology &&
-                    !sameSector
-                );
+                connection
+                    .classList
+                    .toggle(
+                        "dimmed",
+                        !activeTechnology &&
+                        !sameSector
+                    );
             }
         );
 
-
-    // =====================================================
-    // CENTER → SECTOR
-    // =====================================================
 
     document
         .querySelectorAll(
@@ -2155,37 +3015,34 @@ function activateTechnology(
             connection => {
 
                 const active =
-                    connection.dataset.sector ===
+                    connection.dataset
+                        .sector ===
                     sectorId;
 
 
-                connection.classList.toggle(
-                    "active",
-                    active
-                );
+                connection
+                    .classList
+                    .toggle(
+                        "active",
+                        active
+                    );
 
 
-                connection.classList.toggle(
-                    "dimmed",
-                    !active
-                );
+                connection
+                    .classList
+                    .toggle(
+                        "dimmed",
+                        !active
+                    );
             }
         );
 
-
-    // =====================================================
-    // PROJECTS
-    // =====================================================
 
     renderTechnologyProjects(
         technology,
         point
     );
 
-
-    // =====================================================
-    // DETAILS
-    // =====================================================
 
     showTechnologyDetails(
         technology,
@@ -2203,30 +3060,33 @@ function generateProjectPositions(
     projects
 ) {
 
-    const positions = [];
+    const positions =
+        [];
 
 
-    const minTechnologyDistance = 45;
+    const minTechnologyDistance =
+        45;
 
-    const maxTechnologyDistance = 100;
 
-    const minProjectDistance = 65;
+    const maxTechnologyDistance =
+        100;
+
+
+    const minProjectDistance =
+        65;
 
 
     const dx =
         technologyPoint.x -
-        skillsMap.center.x;
+        skillsMap
+            .center.x;
 
 
     const dy =
         technologyPoint.y -
-        skillsMap.center.y;
+        skillsMap
+            .center.y;
 
-
-    /*
-        Kierunek od środka
-        przez technologię.
-    */
 
     const baseAngle =
         Math.atan2(
@@ -2238,186 +3098,187 @@ function generateProjectPositions(
     const random =
         seededRandom(
             Math.round(
-                technologyPoint.x * 13 +
-                technologyPoint.y * 7
+
+                technologyPoint.x *
+                13 +
+
+                technologyPoint.y *
+                7
             )
         );
 
 
-    projects.forEach(() => {
+    projects.forEach(
+        () => {
 
-        let position = null;
-
-
-        for (
-            let attempt = 0;
-            attempt < 500;
-            attempt++
-        ) {
-
-            /*
-                Projekty pozostają w kierunku,
-                z którego przyszła technologia.
-
-                ±35°.
-            */
-
-            const angle =
-                baseAngle +
-                (
-                    random() -
-                    0.5
-                ) *
-                (
-                    70 *
-                    Math.PI /
-                    180
-                );
+            let position =
+                null;
 
 
-            const radius =
-                minTechnologyDistance +
-                random() *
-                (
-                    maxTechnologyDistance -
-                    minTechnologyDistance
-                );
-
-
-            const point = {
-
-                x:
-                    technologyPoint.x +
-                    Math.cos(angle) *
-                    radius,
-
-                y:
-                    technologyPoint.y +
-                    Math.sin(angle) *
-                    radius
-            };
-
-
-            /*
-                Projekt musi znajdować się w SVG.
-            */
-
-            const insideCanvas =
-                point.x >= 50 &&
-                point.x <= 950 &&
-                point.y >= 50 &&
-                point.y <= 710;
-
-
-            if (!insideCanvas) {
-                continue;
-            }
-
-
-            /*
-                Minimalna odległość od technologii.
-            */
-
-            const technologyDx =
-                point.x -
-                technologyPoint.x;
-
-
-            const technologyDy =
-                point.y -
-                technologyPoint.y;
-
-
-            const distanceFromTechnology =
-                Math.sqrt(
-                    technologyDx *
-                    technologyDx +
-                    technologyDy *
-                    technologyDy
-                );
-
-
-            if (
-                distanceFromTechnology <
-                minTechnologyDistance
+            for (
+                let attempt = 0;
+                attempt < 500;
+                attempt++
             ) {
 
-                continue;
-            }
+                const angle =
+                    baseAngle +
+                    (
+                        random() -
+                        0.5
+                    ) *
+                    (
+                        70 *
+                        Math.PI /
+                        180
+                    );
 
 
-            /*
-                Minimalna odległość od innych projektów.
-            */
-
-            const farEnoughFromProjects =
-                positions.every(
-                    existing => {
-
-                        const projectDx =
-                            point.x -
-                            existing.x;
+                const radius =
+                    minTechnologyDistance +
+                    random() *
+                    (
+                        maxTechnologyDistance -
+                        minTechnologyDistance
+                    );
 
 
-                        const projectDy =
-                            point.y -
-                            existing.y;
+                const point = {
+
+                    x:
+                        technologyPoint.x +
+                        Math.cos(
+                            angle
+                        ) *
+                        radius,
+
+                    y:
+                        technologyPoint.y +
+                        Math.sin(
+                            angle
+                        ) *
+                        radius
+                };
 
 
-                        const distance =
-                            Math.sqrt(
-                                projectDx *
-                                projectDx +
-                                projectDy *
-                                projectDy
-                            );
+                const insideCanvas =
+                    point.x >= 50 &&
+                    point.x <= 950 &&
+                    point.y >= 50 &&
+                    point.y <= 710;
 
 
-                        return (
-                            distance >=
-                            minProjectDistance
-                        );
-                    }
-                );
+                if (!insideCanvas) {
+
+                    continue;
+                }
 
 
-            if (!farEnoughFromProjects) {
-                continue;
-            }
+                const technologyDx =
+                    point.x -
+                    technologyPoint.x;
 
 
-            position =
-                point;
-
-            break;
-        }
+                const technologyDy =
+                    point.y -
+                    technologyPoint.y;
 
 
-        /*
-            Awaryjna pozycja.
-        */
+                const distanceFromTechnology =
+                    Math.sqrt(
 
-        if (!position) {
+                        technologyDx *
+                        technologyDx +
 
-            position = {
+                        technologyDy *
+                        technologyDy
+                    );
 
-                x:
-                    technologyPoint.x +
-                    Math.cos(baseAngle) *
-                    minTechnologyDistance,
 
-                y:
-                    technologyPoint.y +
-                    Math.sin(baseAngle) *
+                if (
+                    distanceFromTechnology <
                     minTechnologyDistance
-            };
+                ) {
+
+                    continue;
+                }
+
+
+                const farEnoughFromProjects =
+                    positions.every(
+                        existing => {
+
+                            const projectDx =
+                                point.x -
+                                existing.x;
+
+
+                            const projectDy =
+                                point.y -
+                                existing.y;
+
+
+                            const distance =
+                                Math.sqrt(
+
+                                    projectDx *
+                                    projectDx +
+
+                                    projectDy *
+                                    projectDy
+                                );
+
+
+                            return (
+                                distance >=
+                                minProjectDistance
+                            );
+                        }
+                    );
+
+
+                if (
+                    !farEnoughFromProjects
+                ) {
+
+                    continue;
+                }
+
+
+                position =
+                    point;
+
+
+                break;
+            }
+
+
+            if (!position) {
+
+                position = {
+
+                    x:
+                        technologyPoint.x +
+                        Math.cos(
+                            baseAngle
+                        ) *
+                        minTechnologyDistance,
+
+                    y:
+                        technologyPoint.y +
+                        Math.sin(
+                            baseAngle
+                        ) *
+                        minTechnologyDistance
+                };
+            }
+
+
+            positions.push(
+                position
+            );
         }
-
-
-        positions.push(
-            position
-        );
-    });
+    );
 
 
     return positions;
@@ -2433,7 +3294,8 @@ function renderTechnologyProjects(
     technologyPoint
 ) {
 
-    skillsMap.projects.innerHTML =
+    skillsMap.projects
+        .innerHTML =
         "";
 
 
@@ -2443,7 +3305,10 @@ function renderTechnologyProjects(
         );
 
 
-    if (!projects.length) {
+    if (
+        !projects.length
+    ) {
+
         return;
     }
 
@@ -2462,12 +3327,10 @@ function renderTechnologyProjects(
         ) => {
 
             const projectPoint =
-                projectPositions[index];
+                projectPositions[
+                index
+                ];
 
-
-            // =====================================================
-            // TECHNOLOGY → PROJECT CONNECTION
-            // =====================================================
 
             const connection =
                 createSvgElement(
@@ -2500,10 +3363,6 @@ function renderTechnologyProjects(
                 );
 
 
-            // =====================================================
-            // PROJECT
-            // =====================================================
-
             const group =
                 createSvgElement(
                     "g",
@@ -2526,7 +3385,8 @@ function renderTechnologyProjects(
                         cy:
                             projectPoint.y,
 
-                        r: 4,
+                        r:
+                            4,
 
                         class:
                             "skills-project-dot"
@@ -2548,7 +3408,8 @@ function renderTechnologyProjects(
                             projectPoint.x,
 
                         y:
-                            projectPoint.y - 12,
+                            projectPoint.y -
+                            12,
 
                         class:
                             "skills-project-label",
@@ -2593,11 +3454,12 @@ function showTechnologyDetails(
 
 
     const sector =
-        skillsMap.sectors.find(
-            item =>
-                item.id ===
-                sectorId
-        );
+        skillsMap.sectors
+            .find(
+                item =>
+                    item.id ===
+                    sectorId
+            );
 
 
     let projectText;
@@ -2609,7 +3471,9 @@ function showTechnologyDetails(
     ) {
 
         projectText =
-            "Brak powiązanych projektów";
+            t(
+                "skills.noProjects"
+            );
 
     } else if (
         projects.length ===
@@ -2617,44 +3481,60 @@ function showTechnologyDetails(
     ) {
 
         projectText =
-            "1 powiązany projekt";
+            t(
+                "skills.oneProject"
+            );
 
     } else {
 
         projectText =
-            `${projects.length} powiązane projekty`;
+            t(
+                "skills.manyProjects",
+                projects.length
+            );
     }
 
 
-    skillsMap.details.innerHTML = `
+    skillsMap.details
+        .innerHTML = `
 
-        <div class="skills-details-content">
+            <div
+                class="skills-details-content"
+            >
 
-            <span class="skills-details-category">
+                <span
+                    class="skills-details-category"
+                >
 
-                ${escapeHtml(
-                    sector?.name || ""
-                )}
+                    ${escapeHtml(
+            sector?.name || ""
+        )}
 
-            </span>
+                </span>
 
-            <strong class="skills-details-title">
 
-                ${escapeHtml(
-                    technology
-                )}
+                <strong
+                    class="skills-details-title"
+                >
 
-            </strong>
+                    ${escapeHtml(
+            technology
+        )}
 
-            <span class="skills-details-projects">
+                </strong>
 
-                ${projectText}
 
-            </span>
+                <span
+                    class="skills-details-projects"
+                >
 
-        </div>
+                    ${projectText}
 
-    `;
+                </span>
+
+            </div>
+
+        `;
 }
 
 
@@ -2666,10 +3546,11 @@ function clearActiveMap(
     clearProjects = true
 ) {
 
-    skillsMap.svg.classList.remove(
-        "technology-active",
-        "sector-active"
-    );
+    skillsMap.svg
+        .classList.remove(
+            "technology-active",
+            "sector-active"
+        );
 
 
     document
@@ -2681,32 +3562,23 @@ function clearActiveMap(
         .forEach(
             element => {
 
-                element.classList.remove(
-                    "active",
-                    "sector-active",
-                    "dimmed"
-                );
+                element
+                    .classList
+                    .remove(
+                        "active",
+                        "sector-active",
+                        "dimmed"
+                    );
             }
         );
 
 
     if (clearProjects) {
 
-        /*
-            Usuwamy projekty pokazane
-            po najechaniu na technologię.
-        */
-
-        skillsMap.projects.innerHTML =
+        skillsMap.projects
+            .innerHTML =
             "";
 
-
-        /*
-            Usuwamy dynamiczne linie
-            technologia → projekt.
-
-            Nie czyścimy całego connections.
-        */
 
         skillsMap.connections
             .querySelectorAll(
@@ -2721,19 +3593,29 @@ function clearActiveMap(
     }
 
 
-    skillsMap.details.innerHTML = `
+    skillsMap.details
+        .innerHTML = `
 
-        <div class="skills-details-placeholder">
+            <div
+                class="skills-details-placeholder"
+            >
 
-            <span class="skills-details-line"></span>
+                <span
+                    class="skills-details-line"
+                ></span>
 
-            <span>
-                Najedź na technologię
-            </span>
 
-        </div>
+                <span>
 
-    `;
+                    ${t(
+            "skills.hover"
+        )}
+
+                </span>
+
+            </div>
+
+        `;
 }
 
 
@@ -2745,7 +3627,9 @@ function escapeHtml(
     value
 ) {
 
-    return String(value)
+    return String(
+        value
+    )
         .replaceAll(
             "&",
             "&amp;"
@@ -2775,188 +3659,378 @@ function escapeHtml(
 
 function setupSkillsMapEvents() {
 
-    skillsMap.svg.addEventListener(
-        "mouseleave",
-        () => {
+    skillsMap.svg
+        .addEventListener(
+            "mouseleave",
+            () => {
 
-            clearActiveMap();
-        }
-    );
+                clearActiveMap();
+            }
+        );
 }
 
 
 // =========================================================
-// START SKILLS MAP
+// START
 // =========================================================
+
+setupLanguageSwitch();
+
+setupProjectFilters();
+
+applyTranslations();
 
 initSkillsMap();
 
-
-// =========================================================
-// START PROJECTS
-// =========================================================
-
-setupProjectFilters();
 loadProjects();
 
-/* =========================
-   CODE CARD — TYPEWRITING
-========================= */
-document.addEventListener("DOMContentLoaded", () => {
-    const codeContent = document.querySelector(".code-content");
 
-    if (!codeContent) return;
+// =========================================================
+// CODE CARD — TYPEWRITING
+// =========================================================
 
-    // Usuń ręcznie wpisany kursor z HTML
-    const oldCursor = codeContent.querySelector(".code-cursor");
-    if (oldCursor) {
-        oldCursor.remove();
-    }
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    // Pobierz wszystkie linie kodu
-    const lines = [...codeContent.querySelectorAll("p")];
+        const codeContent =
+            document.querySelector(
+                ".code-content"
+            );
 
-    // Przygotuj kursor
-    const cursor = document.createElement("span");
-    cursor.className = "typewriter-cursor";
-    cursor.textContent = "_";
 
-    // Przygotowanie jednej linii:
-    // - usuwa przypadkowe białe znaki z wnętrza spanów
-    // - zachowuje potrzebne spacje między elementami
-    // - usuwa spacje przed przecinkami, średnikami itd.
-    function prepareLine(line) {
-        const temp = document.createElement("div");
-        temp.innerHTML = line.innerHTML;
-
-        // Czyścimy zawartość kolorowanych spanów
-        temp.querySelectorAll(".code-purple, .code-green").forEach((element) => {
-            element.textContent = element.textContent
-                .replace(/\s+/g, " ")
-                .trim();
-        });
-
-        // Normalizacja whitespace'u
-        let html = temp.innerHTML
-            .replace(/\s+/g, " ")
-            .replace(/\s+([,;:}\]])/g, "$1")
-            .replace(/([([{])\s+/g, "$1")
-            .trim();
-
-        temp.innerHTML = html;
-
-        return [...temp.childNodes].map((node) => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                return {
-                    type: "text",
-                    text: node.textContent
-                };
-            }
-
-            return {
-                type: "element",
-                element: node.cloneNode(true)
-            };
-        });
-    }
-
-    // Zapamiętaj zawartość wszystkich linii
-    const preparedLines = lines.map((line) => prepareLine(line));
-
-    // Wyczyść wszystkie linie
-    lines.forEach((line) => {
-        line.innerHTML = "";
-    });
-
-    // Funkcja opóźnienia
-    const sleep = (ms) =>
-        new Promise((resolve) => setTimeout(resolve, ms));
-
-    // Dodawanie pojedynczego znaku
-    async function typeTextNode(line, text) {
-        const textNode = document.createTextNode("");
-        line.appendChild(textNode);
-
-        for (const char of text) {
-            textNode.textContent += char;
-
-            // Kursor zawsze na końcu aktualnie wpisywanego tekstu
-            line.appendChild(cursor);
-
-            // Spacje pojawiają się praktycznie bez pauzy
-            if (char === " ") {
-                await sleep(3);
-            } else {
-                await sleep(18);
-            }
+        if (!codeContent) {
+            return;
         }
-    }
 
-    // Wpisywanie elementu, np. kolorowanego spana
-    async function typeElement(line, element) {
-        const newElement = element.cloneNode(false);
-        newElement.textContent = "";
 
-        line.appendChild(newElement);
+        const oldCursor =
+            codeContent.querySelector(
+                ".code-cursor"
+            );
 
-        const text = element.textContent;
 
-        for (const char of text) {
-            newElement.textContent += char;
+        if (oldCursor) {
 
-            // Kursor za aktualnie wpisywanym spanem
-            line.appendChild(cursor);
-
-            if (char === " ") {
-                await sleep(3);
-            } else {
-                await sleep(18);
-            }
+            oldCursor.remove();
         }
-    }
 
-    // Główna animacja
-    async function typeCode() {
-        // Kursor na początku pierwszej linii
-        lines[0].appendChild(cursor);
 
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i];
+        const lines = [
+            ...codeContent.querySelectorAll(
+                "p"
+            )
+        ];
 
-            // Przenieś kursor na aktualną linię
-            line.appendChild(cursor);
 
-            for (const node of preparedLines[i]) {
-                if (node.type === "text") {
-                    await typeTextNode(line, node.text);
+        const cursor =
+            document.createElement(
+                "span"
+            );
+
+
+        cursor.className =
+            "typewriter-cursor";
+
+
+        cursor.textContent =
+            "_";
+
+
+        function prepareLine(
+            line
+        ) {
+
+            const temp =
+                document.createElement(
+                    "div"
+                );
+
+
+            temp.innerHTML =
+                line.innerHTML;
+
+
+            temp
+                .querySelectorAll(
+                    ".code-purple, .code-green"
+                )
+                .forEach(
+                    element => {
+
+                        element.textContent =
+                            element
+                                .textContent
+                                .replace(
+                                    /\s+/g,
+                                    " "
+                                )
+                                .trim();
+                    }
+                );
+
+
+            let html =
+                temp
+                    .innerHTML
+                    .replace(
+                        /\s+/g,
+                        " "
+                    )
+                    .replace(
+                        /\s+([,;:}\]])/g,
+                        "$1"
+                    )
+                    .replace(
+                        /([([{])\s+/g,
+                        "$1"
+                    )
+                    .trim();
+
+
+            temp.innerHTML =
+                html;
+
+
+            return [
+                ...temp.childNodes
+            ]
+                .map(
+                    node => {
+
+                        if (
+                            node.nodeType ===
+                            Node.TEXT_NODE
+                        ) {
+
+                            return {
+
+                                type:
+                                    "text",
+
+                                text:
+                                    node.textContent
+                            };
+                        }
+
+
+                        return {
+
+                            type:
+                                "element",
+
+                            element:
+                                node.cloneNode(
+                                    true
+                                )
+                        };
+                    }
+                );
+        }
+
+
+        const preparedLines =
+            lines.map(
+                line =>
+                    prepareLine(
+                        line
+                    )
+            );
+
+
+        lines.forEach(
+            line => {
+
+                line.innerHTML =
+                    "";
+            }
+        );
+
+
+        const sleep =
+            ms =>
+                new Promise(
+                    resolve =>
+                        setTimeout(
+                            resolve,
+                            ms
+                        )
+                );
+
+
+        async function typeTextNode(
+            line,
+            text
+        ) {
+
+            const textNode =
+                document.createTextNode(
+                    ""
+                );
+
+
+            line.appendChild(
+                textNode
+            );
+
+
+            for (
+                const char
+                of text
+            ) {
+
+                textNode.textContent +=
+                    char;
+
+
+                line.appendChild(
+                    cursor
+                );
+
+
+                if (
+                    char === " "
+                ) {
+
+                    await sleep(
+                        3
+                    );
+
                 } else {
-                    await typeElement(line, node.element);
+
+                    await sleep(
+                        18
+                    );
+                }
+            }
+        }
+
+
+        async function typeElement(
+            line,
+            element
+        ) {
+
+            const newElement =
+                element.cloneNode(
+                    false
+                );
+
+
+            newElement.textContent =
+                "";
+
+
+            line.appendChild(
+                newElement
+            );
+
+
+            const text =
+                element.textContent;
+
+
+            for (
+                const char
+                of text
+            ) {
+
+                newElement.textContent +=
+                    char;
+
+
+                line.appendChild(
+                    cursor
+                );
+
+
+                if (
+                    char === " "
+                ) {
+
+                    await sleep(
+                        3
+                    );
+
+                } else {
+
+                    await sleep(
+                        18
+                    );
+                }
+            }
+        }
+
+
+        async function typeCode() {
+
+            lines[
+                0
+            ].appendChild(
+                cursor
+            );
+
+
+            for (
+                let i = 0;
+                i < lines.length;
+                i++
+            ) {
+
+                const line =
+                    lines[i];
+
+
+                line.appendChild(
+                    cursor
+                );
+
+
+                for (
+                    const node
+                    of preparedLines[i]
+                ) {
+
+                    if (
+                        node.type ===
+                        "text"
+                    ) {
+
+                        await typeTextNode(
+                            line,
+                            node.text
+                        );
+
+                    } else {
+
+                        await typeElement(
+                            line,
+                            node.element
+                        );
+                    }
+                }
+
+
+                if (
+                    i <
+                    lines.length - 1
+                ) {
+
+                    await sleep(
+                        80
+                    );
                 }
             }
 
-            // Mała pauza przed następną linią
-            if (i < lines.length - 1) {
-                await sleep(80);
-            }
+
+            lines[
+                lines.length - 1
+            ].appendChild(
+                cursor
+            );
         }
 
-        // Kursor zostaje na końcu ostatniej linii
-        lines[lines.length - 1].appendChild(cursor);
+
+        typeCode();
     }
-
-    typeCode();
-});
-
-let technologyResizeFrame;
-
-window.addEventListener("resize", () => {
-
-    cancelAnimationFrame(
-        technologyResizeFrame
-    );
-
-    technologyResizeFrame =
-        requestAnimationFrame(() => {
-            fitProjectCardTechnologies();
-        });
-});
+);
