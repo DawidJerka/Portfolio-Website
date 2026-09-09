@@ -86,16 +86,16 @@ db.serialize(() => {
             type: "Game Development",
 
             description:
-                "3D sci-fi survivor game rozwijany w Unity 6.",
+                "3D sci-fi survivor-like rozwijany w Unity 6, z automatyczną walką, systemem rozwoju postaci, modularnymi broniami oraz skalującym się poziomem trudności.",
 
             description_en:
-                "A 3D sci-fi survivor game developed in Unity 6.",
+                "A 3D sci-fi survivor-like developed in Unity 6, featuring automatic combat, character progression, modular weapons and dynamically scaling difficulty.",
 
             full_description:
-                "Projekt gry typu survivor rozwijany w silniku Unity 6. Skupia się na projektowaniu modularnych systemów gameplayowych, między innymi systemu broni, przeciwników, progresji postaci oraz zarządzania danymi.",
+                "Survivors 3D to stylizowana gra akcji typu survivor-like rozwijana w Unity 6 jako projekt portfolio. Gracz steruje robotem poruszającym się po futurystycznej arenie, na której z każdą kolejną minutą pojawia się coraz więcej przeciwników. Walka odbywa się automatycznie, natomiast zadaniem gracza jest odpowiednie pozycjonowanie postaci, unikanie przeciwników, zbieranie doświadczenia oraz dobieranie ulepszeń pozwalających przetrwać rosnącą presję.\n\nProjekt posiada kompletną podstawową pętlę rozgrywki. Pokonani przeciwnicy pozostawiają kryształy doświadczenia, które po zbliżeniu przyciągane są do gracza. Po zdobyciu odpowiedniej liczby punktów doświadczenia gra zostaje zatrzymana, a gracz wybiera jedną z losowo wygenerowanych opcji rozwoju. Możliwe jest zdobywanie nowych broni i przedmiotów pasywnych oraz ulepszanie już posiadanych elementów wyposażenia. System uwzględnia między innymi maksymalne poziomy przedmiotów oraz limity dostępnych slotów.",
 
             full_description_en:
-                "A survivor-style game project developed in Unity 6. The project focuses on designing modular gameplay systems, including weapon systems, enemies, character progression and data management.",
+                "Survivors 3D is a stylized survivor-like action game developed in Unity 6 as a portfolio project. The player controls a robotic character inside a futuristic arena where increasingly difficult waves of enemies approach from every direction. Combat is mostly automatic, while the player focuses on positioning, avoiding enemies, collecting experience and selecting upgrades that help survive the increasing pressure.\n\nThe project features a complete core gameplay loop. Defeated enemies drop experience gems that are attracted toward the player when entering the pickup radius. After gaining enough experience, the game pauses and presents randomly generated upgrade options. The player can acquire new weapons and passive items or upgrade those already owned. The system also handles maximum item levels and category slot limits.",
 
             github_url:
                 "https://github.com/DawidJerka/Survivors3D",
@@ -380,6 +380,11 @@ db.serialize(() => {
         "GDScript",
         "Simulation",
         "Pathfinding",
+        "Data-Driven Design",
+        "Rigidbody Physics",
+        "URP",
+        "Audio Pooling",
+        "Particle System",
 
         // Data Science
         "Python",
@@ -441,7 +446,12 @@ db.serialize(() => {
             "Unity",
             "C#",
             "ScriptableObjects",
-            "OOP"
+            "Data-Driven Design",
+            "OOP",
+            "Rigidbody Physics",
+            "URP",
+            "Audio Pooling",
+            "Particle System"
         ],
         "safari-zone": [
             "Python",
