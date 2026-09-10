@@ -181,12 +181,23 @@ const translations = {
 };
 
 
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const languageFromUrl =
+    urlParams.get("lang");
+
 let currentLanguage =
-    localStorage.getItem(
-        "portfolio-language"
-    ) === "en"
-        ? "en"
-        : "pl";
+    languageFromUrl === "en" ||
+        languageFromUrl === "pl"
+        ? languageFromUrl
+        : localStorage.getItem(
+            "portfolio-language"
+        ) === "en"
+            ? "en"
+            : "pl";
 
 
 function t(key, ...args) {
@@ -314,6 +325,30 @@ async function setLanguage(language) {
         currentLanguage
     );
 
+    const url =
+        new URL(
+            window.location.href
+        );
+
+    if (currentLanguage === "en") {
+
+        url.searchParams.set(
+            "lang",
+            "en"
+        );
+
+    } else {
+
+        url.searchParams.delete(
+            "lang"
+        );
+    }
+
+    window.history.replaceState(
+        {},
+        "",
+        url
+    );
 
     // =========================
     // STATIC TRANSLATIONS
@@ -1206,11 +1241,10 @@ async function openProject(
     try {
 
         const response =
-    await fetch(
-        `/api/projects/${
-            encodeURIComponent(slug)
-        }?lang=${currentLanguage}`
-    );
+            await fetch(
+                `/api/projects/${encodeURIComponent(slug)
+                }?lang=${currentLanguage}`
+            );
 
 
         if (!response.ok) {
