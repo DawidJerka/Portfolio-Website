@@ -2809,6 +2809,10 @@ button {
 
     font-size: 16px;
 
+    text-align: justify;
+    text-justify: inter-word;
+
+
     line-height: 1.8;
 }
 
