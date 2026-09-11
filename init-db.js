@@ -224,13 +224,13 @@ db.serialize(() => {
         },
         {
             title:
-                "Car Brand Classification",
+                "Car Brand Detection",
 
             title_en:
-                "Car Brand Classification",
+                "Car Brand Detection",
 
             slug:
-                "car-brand-classification",
+                "car-brand-detection",
 
             type:
                 "Machine Learning / Android",
@@ -248,12 +248,12 @@ db.serialize(() => {
                 "This project was developed by a three-person team with the goal of creating a system for recognizing car brands from images and video recordings.\n\nInitially, we used MobileNet for brand classification, but unsatisfactory results led us to change the approach to logo detection. We trained a YOLOv8n model on a prepared dataset and experimented with the number of classes, data augmentation and hyperparameters. The final solution used a model trained on a reduced set of classes with data augmentation.\n\nThe project also included model explainability analysis using EigenCam and evaluation of the energy footprint of training using CodeCarbon.\n\nMy main contribution involved technical decision-making, dataset selection and preparing the model deployment stage. I converted the trained YOLOv8n model to TensorFlow Lite (TFLite) and integrated it into an Android application.\n\nThe application allows the user to select a video recording and analyzes successive frames directly on the device. Detected logos are displayed using bounding boxes together with the recognized brand name. The user can also adjust how frequently frames are analyzed, allowing performance to be adapted to the capabilities of the device.\n\nThe project provided practical experience with the complete ML solution lifecycle — from preparing data and experimenting with models, through analyzing their behavior, to deploying a trained model in a mobile application.",
 
             github_url:
-                "https://github.com/DawidJerka/WTUM-Klasyfikacja_samochodow",
+                "https://github.com/DawidJerka/Car_Logo_Detection",
 
             demo_url: "",
 
             media_url:
-                "/images/car_brand_classification.png"
+                "/images/car_brand_detection.png"
         },
         {
             title:
@@ -483,7 +483,7 @@ db.serialize(() => {
             "HTML",
             "Machine Learning"
         ],
-        "car-brand-classification": [
+        "car-brand-detecion": [
             "Python",
             "YOLO",
             "TensorFlow Lite",
