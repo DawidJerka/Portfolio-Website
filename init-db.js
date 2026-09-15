@@ -483,7 +483,7 @@ db.serialize(() => {
             "HTML",
             "Machine Learning"
         ],
-        "car-brand-detecion": [
+        "car-brand-detection": [
             "Python",
             "YOLO",
             "TensorFlow Lite",
